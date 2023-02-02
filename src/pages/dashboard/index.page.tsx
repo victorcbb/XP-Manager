@@ -4,15 +4,14 @@ import Image from 'next/image'
 import { useEffect } from 'react'
 import { toast } from 'react-toastify'
 import { GetServerSideProps } from 'next'
+import { unstable_getServerSession } from 'next-auth/next'
 
 import { api } from '../../lib/axios'
-import { unstable_getServerSession } from 'next-auth/next'
 import { buildNextAuthOptions } from '../api/auth/[...nextauth].api'
+import { Header } from '../../component/Header'
 
 export default function Dashboard() {
   const session = useSession()
-
-  console.log(session)
 
   useEffect(() => {
     async function createUser() {
@@ -38,6 +37,7 @@ export default function Dashboard() {
 
   return (
     <>
+      <Header />
       <p>{session.data?.user?.email}</p>
       <Image
         src={session.data?.user?.avatar_url!}
@@ -45,6 +45,7 @@ export default function Dashboard() {
         width="150"
         height="150"
         quality={100}
+        priority
       />
     </>
   )
