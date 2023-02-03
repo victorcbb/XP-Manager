@@ -1,14 +1,16 @@
-import { BsGoogle } from 'react-icons/bs'
+import { BsArrowRightCircle, BsGoogle } from 'react-icons/bs'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import { signIn } from 'next-auth/react'
+import { signIn, useSession } from 'next-auth/react'
 
 import { Button } from '../../component/Button'
 import { Container, Content, Title } from './styles'
 import { useRouter } from 'next/router'
+import Link from 'next/link'
 
 export default function Home() {
   const router = useRouter()
+  const session = useSession()
 
   const hasAuthError = !!router.query.error
 
@@ -36,12 +38,19 @@ export default function Home() {
           em suas aventuras.
         </p>
 
-        <Button
-          title="Começar com Google"
-          type="button"
-          icon={<BsGoogle />}
-          onClick={handleSingIn}
-        />
+        {session.status === 'authenticated' ? (
+          <Link href="/dashboard">
+            Ir para Dashboard
+            <BsArrowRightCircle />
+          </Link>
+        ) : (
+          <Button
+            title="Começar com Google"
+            type="button"
+            icon={<BsGoogle />}
+            onClick={handleSingIn}
+          />
+        )}
       </Content>
     </Container>
   )

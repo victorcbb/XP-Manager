@@ -44,8 +44,45 @@ model User {
   avatar_url String?
   created_at DateTime @default(now())
 
-  accounts Account[]
-  sessions Session[]
+  campaigns Campaign[]
+  accounts  Account[]
+  sessions  Session[]
 
   @@map("users")
+}
+
+model Campaign {
+  id         String   @id @default(uuid())
+  name       String
+  created_at DateTime @default(now())
+  user_id    String?
+
+  characters Character[]
+  User       User?       @relation(fields: [user_id], references: [id])
+
+  @@map("campaigns")
+}
+
+model Character {
+  id          String    @id @default(uuid())
+  name        String
+  player_name String
+  created_at  DateTime  @default(now())
+  updated_at  DateTime?
+  campaign_id String?
+
+  experiences Experience[]
+  Campaign    Campaign?    @relation(fields: [campaign_id], references: [id])
+
+  @@map("characters")
+}
+
+model Experience {
+  id          Int        @id @default(autoincrement())
+  points      Int
+  created_at  DateTime   @default(now())
+  Character   Character? @relation(fields: [characterId], references: [id])
+  characterId String?
+
+  @@map("experiences")
 }

@@ -66,13 +66,18 @@ export const UserInfos = styled.div`
 
     strong {
       font-size: 1.125rem;
+      font-family: 'Poppins', sans-serif;
+      line-height: 1;
+      color: ${({ theme }) => theme['gray-800']};
     }
 
     span {
       font-size: 0.875rem;
+      color: ${({ theme }) => theme['gray-500']};
     }
   }
   img {
+    border: 2px solid ${({ theme }) => theme['orange-600']};
     border-radius: 999px;
   }
 `

@@ -1,6 +1,5 @@
 import { AxiosError } from 'axios'
 import { useSession } from 'next-auth/react'
-import Image from 'next/image'
 import { useEffect } from 'react'
 import { toast } from 'react-toastify'
 import { GetServerSideProps } from 'next'
@@ -9,6 +8,9 @@ import { unstable_getServerSession } from 'next-auth/next'
 import { api } from '../../lib/axios'
 import { buildNextAuthOptions } from '../api/auth/[...nextauth].api'
 import { Header } from '../../component/Header'
+import { CampaignList, Container, Content } from './styles'
+import { Input } from '../../component/Input'
+import { CampaignCard } from '../../component/CampaignCard'
 
 export default function Dashboard() {
   const session = useSession()
@@ -19,7 +21,7 @@ export default function Dashboard() {
         await api.post('/users', {
           name: session?.data?.user?.name,
           email: session?.data?.user?.email,
-          imageUrl: session?.data?.user?.avatar_url,
+          avatarUrl: session?.data?.user?.avatar_url,
         })
       } catch (error) {
         if (error instanceof AxiosError && error.response?.data?.message) {
@@ -36,18 +38,16 @@ export default function Dashboard() {
   ])
 
   return (
-    <>
+    <Container>
       <Header />
-      <p>{session.data?.user?.email}</p>
-      <Image
-        src={session.data?.user?.avatar_url!}
-        alt={`Foto do perfil de ${session.data?.user?.name}`}
-        width="150"
-        height="150"
-        quality={100}
-        priority
-      />
-    </>
+      <Content>
+        <h1>Campanhas</h1>
+        <Input placeholder="Pesquise o nome da campanha" type="text" />
+        <CampaignList>
+          <CampaignCard />
+        </CampaignList>
+      </Content>
+    </Container>
   )
 }
 

@@ -28,7 +28,7 @@ export default async function handler(
       },
     })
 
-    setCookie({ res }, '@xp-manager:userid', user.id, {
+    setCookie({ res }, '@xp-manager:userId', user.id, {
       maxAge: 60 * 60 * 24 * 10, // 10 days
       path: '/',
     })

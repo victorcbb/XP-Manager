@@ -6,6 +6,7 @@ import { Container, ContentHeader, UserInfos } from './styles'
 
 export function Header() {
   const session = useSession()
+  console.log(session)
 
   return (
     <Container>
@@ -16,14 +17,14 @@ export function Header() {
         </Link>
         <UserInfos>
           <div>
-            <strong>{session.data?.user?.name}</strong>
-            <span>{session.data?.user?.email}</span>
+            <strong>{session?.data?.user.name}</strong>
+            <span>{session?.data?.user.email}</span>
           </div>
           <Image
-            src={session.data?.user?.avatar_url!}
-            alt={`Foto do perfil de ${session.data?.user?.name}`}
-            width={50}
-            height={50}
+            src={session?.data?.user.avatar_url!}
+            alt={`Foto do perfil de ${session?.data?.user.name}`}
+            width={52}
+            height={52}
             quality={100}
           />
         </UserInfos>
