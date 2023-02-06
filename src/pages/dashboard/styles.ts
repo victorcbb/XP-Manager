@@ -14,8 +14,14 @@ export const Content = styled.main`
   border-radius: 8px;
   border: 2px solid ${({ theme }) => theme['orange-500']};
 
-  h1 {
+  > div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     margin-bottom: 1rem;
+
+    h1 {
+    }
   }
 `
 

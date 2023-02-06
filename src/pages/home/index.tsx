@@ -6,7 +6,7 @@ import { signIn, useSession } from 'next-auth/react'
 import { Button } from '../../component/Button'
 import { Container, Content, Title } from './styles'
 import { useRouter } from 'next/router'
-import Link from 'next/link'
+import { ButtonLink } from '../../component/ButtonLink'
 
 export default function Home() {
   const router = useRouter()
@@ -39,10 +39,11 @@ export default function Home() {
         </p>
 
         {session.status === 'authenticated' ? (
-          <Link href="/dashboard">
-            Ir para Dashboard
-            <BsArrowRightCircle />
-          </Link>
+          <ButtonLink
+            title="Ir para Dashboard"
+            path="/dashboard"
+            icon={<BsArrowRightCircle />}
+          />
         ) : (
           <Button
             title="Começar com Google"

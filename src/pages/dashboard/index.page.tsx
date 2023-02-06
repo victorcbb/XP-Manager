@@ -1,9 +1,9 @@
 import { AxiosError } from 'axios'
 import { useSession } from 'next-auth/react'
-import { useEffect } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { GetServerSideProps } from 'next'
-import { unstable_getServerSession } from 'next-auth/next'
+import { getServerSession } from 'next-auth/next'
 
 import { api } from '../../lib/axios'
 import { buildNextAuthOptions } from '../api/auth/[...nextauth].api'
@@ -11,8 +11,24 @@ import { Header } from '../../component/Header'
 import { CampaignList, Container, Content } from './styles'
 import { Input } from '../../component/Input'
 import { CampaignCard } from '../../component/CampaignCard'
+import { ButtonLink } from '../../component/ButtonLink'
+import { BsPlusCircle } from 'react-icons/bs'
+
+interface Character {
+  id: string
+  name: string
+}
+
+interface Campaigns {
+  id: string
+  name: string
+  description: string
+  characters: Character[]
+}
 
 export default function Dashboard() {
+  const [campaigns, setCampaigns] = useState<Campaigns[]>([])
+  const [search, setSearch] = useState('teste')
   const session = useSession()
 
   useEffect(() => {
@@ -37,14 +53,38 @@ export default function Dashboard() {
     session?.data?.user?.avatar_url,
   ])
 
+  useEffect(() => {
+    async function fetchCampaign() {
+      const response = await api.get(`/users/campaigns/${search}`)
+
+      setCampaigns(response.data)
+    }
+
+    fetchCampaign()
+  }, [search])
+
+  console.log(campaigns)
+
   return (
     <Container>
       <Header />
       <Content>
-        <h1>Campanhas</h1>
-        <Input placeholder="Pesquise o nome da campanha" type="text" />
+        <div>
+          <h1>Campanhas</h1>
+          <ButtonLink title="Nova" path="/dashboard" icon={<BsPlusCircle />} />
+        </div>
+        <Input
+          placeholder="Pesquise o nome da campanha"
+          type="text"
+          onChange={(e: ChangeEvent<HTMLInputElement>) =>
+            setSearch(e.target.value)
+          }
+        />
         <CampaignList>
-          <CampaignCard />
+          {campaigns &&
+            campaigns.map((campaign) => (
+              <CampaignCard key={campaign.id} data={campaign} />
+            ))}
         </CampaignList>
       </Content>
     </Container>
@@ -52,7 +92,7 @@ export default function Dashboard() {
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
-  const session = await unstable_getServerSession(
+  const session = await getServerSession(
     req,
     res,
     buildNextAuthOptions(req, res),

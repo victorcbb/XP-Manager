@@ -1,20 +1,32 @@
 import { CharacterTag } from '../CharacterTag'
 import { Characters, Container } from './styles'
 
-export function CampaignCard() {
+interface ICharacter {
+  id: string
+  name: string
+}
+
+interface ICampaign {
+  name: string
+  description: string
+  characters: ICharacter[]
+}
+
+interface CampaignCardProps {
+  data: ICampaign
+}
+
+export function CampaignCard({ data, ...rest }: CampaignCardProps) {
   return (
-    <Container href="#">
-      <h2>Os Pistoleiros de G</h2>
-      <p>
-        Essa campnha desenvolve o cenário de Gedson, no mundo conhecido como
-        narigolândia. Uma terra pacífica, até a chegada de mercenários que
-        portavam armas estranhas.
-      </p>
+    <Container href="#" {...rest}>
+      <h2>{data.name}</h2>
+      <p>{data.description}</p>
       <span>Personagens:</span>
       <Characters>
-        <CharacterTag CharacterName="Temostocles" />
-        <CharacterTag CharacterName="Lascado" />
-        <CharacterTag CharacterName="Kless" />
+        {data.characters &&
+          data.characters.map((character) => (
+            <CharacterTag key={character.id} CharacterName={character.name} />
+          ))}
       </Characters>
     </Container>
   )

@@ -1,17 +1,29 @@
+import { HTMLProps } from 'react'
 import { Container } from './styles'
 
-interface InputProps {
+interface InputProps extends HTMLProps<HTMLInputElement> {
   label?: string
   type: string
   placeholder: string
   minCaracter?: number
 }
 
-export function Input({ label, placeholder, type, minCaracter }: InputProps) {
+export function Input({
+  label,
+  placeholder,
+  type,
+  minCaracter,
+  ...rest
+}: InputProps) {
   return (
     <Container>
       {label}
-      <input type={type} placeholder={placeholder} min={minCaracter} />
+      <input
+        type={type}
+        placeholder={placeholder}
+        min={minCaracter}
+        {...rest}
+      />
     </Container>
   )
 }

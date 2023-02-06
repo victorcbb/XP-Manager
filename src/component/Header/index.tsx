@@ -6,8 +6,6 @@ import { Container, ContentHeader, UserInfos } from './styles'
 
 export function Header() {
   const session = useSession()
-  console.log(session)
-
   return (
     <Container>
       <ContentHeader>
