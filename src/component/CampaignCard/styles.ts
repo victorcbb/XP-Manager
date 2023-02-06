@@ -3,6 +3,7 @@ import styled from 'styled-components'
 
 export const Container = styled(Link)`
   width: 100%;
+  height: 11rem;
 
   padding: 1rem 0.5rem;
 
@@ -18,6 +19,7 @@ export const Container = styled(Link)`
   }
 
   p {
+    height: 3rem;
     font-size: 0.875rem;
     color: ${({ theme }) => theme['gray-500']};
 
@@ -32,8 +34,19 @@ export const Container = styled(Link)`
 export const Characters = styled.div`
   margin-top: 0.25rem;
   width: 100%;
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  flex-wrap: wrap;
+
+  white-space: nowrap;
+
+  overflow-x: scroll;
+
+  &::-webkit-scrollbar {
+    height: 0.35rem;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border: 0.1rem solid transparent;
+    background-clip: padding-box;
+    background-color: ${({ theme }) => theme['blue-300']};
+    border-radius: 8px;
+  }
 `

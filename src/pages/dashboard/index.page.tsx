@@ -63,7 +63,30 @@ export default function Dashboard() {
     fetchCampaign()
   }, [search])
 
-  console.log(campaigns)
+  const modelo = {
+    id: 'sudahu4ush4u4uh',
+    name: 'Sessão modelo',
+    description:
+      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda reprehenderit molestiae laborum soluta. Perferendis unde deleniti blanditiis veritatis dolore sequi eius nemo reiciendis, pariatur repellat vitae iure, voluptate corporis nihil?',
+    characters: [
+      {
+        id: 'AHAHAHS',
+        name: 'Lyron',
+      },
+      {
+        id: 'AHAHA1HS',
+        name: 'Skyline, o decisivo',
+      },
+      {
+        id: 'AHAH3AHS',
+        name: 'Hogred',
+      },
+      {
+        id: 'AHA11H3AHS',
+        name: 'willy Greenjam',
+      },
+    ],
+  }
 
   return (
     <Container>
@@ -85,6 +108,9 @@ export default function Dashboard() {
             campaigns.map((campaign) => (
               <CampaignCard key={campaign.id} data={campaign} />
             ))}
+          <CampaignCard data={modelo} />
+          <CampaignCard data={modelo} />
+          <CampaignCard data={modelo} />
         </CampaignList>
       </Content>
     </Container>
