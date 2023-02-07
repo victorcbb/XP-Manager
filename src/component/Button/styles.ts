@@ -20,4 +20,9 @@ export const Container = styled.button`
   &:hover {
     filter: brightness(0.8);
   }
+
+  &:disabled:not(:hover) {
+    filter: grayscale(0.5);
+    cursor: not-allowed;
+  }
 `

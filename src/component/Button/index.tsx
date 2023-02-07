@@ -6,12 +6,17 @@ interface ButtonProps {
   icon?: ReactNode
   type: 'button' | 'submit'
   onClick?: () => void
-  loading?: boolean
+  isLoading?: boolean
 }
 
-export function Button({ title, icon, ...rest }: ButtonProps) {
+export function Button({
+  title,
+  icon,
+  isLoading = false,
+  ...rest
+}: ButtonProps) {
   return (
-    <Container {...rest}>
+    <Container disabled={isLoading} {...rest}>
       {title}
       {icon}
     </Container>

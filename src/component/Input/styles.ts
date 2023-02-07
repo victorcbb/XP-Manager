@@ -5,6 +5,9 @@ export const Container = styled.label`
   display: flex;
   flex-direction: column;
   gap: 0.25em;
+
+  font-weight: 500;
+
   input {
     padding: 0.25rem 0.5rem;
     background-color: ${({ theme }) => theme.white};
