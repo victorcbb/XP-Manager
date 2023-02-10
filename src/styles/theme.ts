@@ -4,12 +4,14 @@ export const defaultTheme = {
   'blue-200': '#90CDF4',
   'blue-300': '#63B3ED',
   'blue-600': '#2B6CB0',
+  'blue-700': '#2C5282',
 
   'gray-50': '#F7FAFC',
   'gray-100': '#EDF2F7',
   'gray-200': '#E2E8F0',
   'gray-300': '#C4C4CC',
   'gray-500': '#7C7C8A',
+  'gray-700': '#2D3748',
   'gray-800': '#222325',
   'gray-900': '#000C12',
 

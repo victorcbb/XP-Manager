@@ -10,6 +10,7 @@ interface ICampaign {
   name: string
   description: string
   characters: ICharacter[]
+  id: string
 }
 
 interface CampaignCardProps {
@@ -18,7 +19,7 @@ interface CampaignCardProps {
 
 export function CampaignCard({ data, ...rest }: CampaignCardProps) {
   return (
-    <Container href="#" {...rest}>
+    <Container href={`/campaign/${data.id}`} {...rest}>
       <h2>{data.name}</h2>
       <p>{data.description}</p>
       <span>Personagens:</span>

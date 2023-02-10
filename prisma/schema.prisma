@@ -79,11 +79,11 @@ model Character {
 }
 
 model Experience {
-  id          Int        @id @default(autoincrement())
-  points      Int
-  created_at  DateTime   @default(now())
-  Character   Character? @relation(fields: [characterId], references: [id])
-  characterId String?
+  id           Int        @id @default(autoincrement())
+  points       Int
+  created_at   DateTime   @default(now())
+  Character    Character? @relation(fields: [character_id], references: [id])
+  character_id String?
 
   @@map("experiences")
 }

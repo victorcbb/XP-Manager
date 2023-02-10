@@ -6,6 +6,7 @@ import 'react-toastify/dist/ReactToastify.css'
 
 import { GlobalStyle } from '../styles/global'
 import { defaultTheme } from '../styles/theme'
+import { CharacterProvider } from '../context/CharacterContext'
 
 export default function App({
   Component,
@@ -27,7 +28,9 @@ export default function App({
           theme="colored"
         />
         <GlobalStyle />
-        <Component {...pageProps} />
+        <CharacterProvider>
+          <Component {...pageProps} />
+        </CharacterProvider>
       </ThemeProvider>
     </SessionProvider>
   )
