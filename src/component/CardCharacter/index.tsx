@@ -5,10 +5,11 @@ import { toast } from 'react-toastify'
 
 import { api } from '../../lib/axios'
 import { levelCalculator } from '../../utils/level-calculator'
-import { ActionDialog } from '../AlertDialog'
+import { AlertDialog } from '../AlertDialog'
 import { Input } from '../Input'
 import { Container, InfosCharacter } from './styles'
 import { useCharacters } from '../../context/CharacterContext'
+import { DropdownMenu } from '../DropdownMenu'
 
 interface IOnlyExperienceCharacter {
   points: number
@@ -33,6 +34,7 @@ interface CardCharacterProps {
 export function CardCharacter({ character, campaignId }: CardCharacterProps) {
   const [experience, setExperience] = useState(0)
   const [amountExperience, setAmountExperience] = useState(0)
+  const [lastExperience, setLastExperience] = useState(0)
 
   const { fetchCharacters } = useCharacters()
 
@@ -57,6 +59,7 @@ export function CardCharacter({ character, campaignId }: CardCharacterProps) {
       })
 
       incrementExperienceCharacter(character.id)
+      lastExperienceCharacter(character.id)
 
       toast.success('Pontuação de experiência adicionada com sucesso.')
     } catch (err) {
@@ -78,13 +81,38 @@ export function CardCharacter({ character, campaignId }: CardCharacterProps) {
     setAmountExperience(amount)
   }
 
+  async function lastExperienceCharacter(characterId: string) {
+    const result = await api.get(`/character/experience/${characterId}`)
+
+    const onlyxp: IOnlyExperienceCharacter[] = result.data
+
+    const filteredLastExperience = onlyxp.at(-1)?.points
+    setLastExperience(filteredLastExperience || 0)
+
+    incrementExperienceCharacter(characterId)
+  }
+
   async function handleDeleteCharacter() {
     try {
-      console.log(character.id)
-
       await api.delete(`/character/delete-character/${character.id}`)
       fetchCharacters(campaignId)
-      toast.success('Novo personagem adicionado!')
+      toast.success('Personagem deletado.')
+    } catch (err) {
+      if (err instanceof AxiosError && err.response?.data?.message) {
+        return toast.error(err.response.data.message)
+      }
+    }
+  }
+
+  async function handleDeleteLastExperience() {
+    try {
+      console.log(
+        character.id,
+        character.experiences.at(-1)?.id,
+        character.experiences.at(-1)?.points,
+      )
+
+      toast.success('Experiência excluída.')
     } catch (err) {
       if (err instanceof AxiosError && err.response?.data?.message) {
         return toast.error(err.response.data.message)
@@ -102,7 +130,8 @@ export function CardCharacter({ character, campaignId }: CardCharacterProps) {
     )
 
     setAmountExperience(amount)
-  }, [character.experiences])
+    lastExperienceCharacter(character.id)
+  }, [character.experiences, character.id])
 
   return (
     <Container>
@@ -115,6 +144,11 @@ export function CardCharacter({ character, campaignId }: CardCharacterProps) {
         <strong>
           Pontos de experiência: <span>{amountExperience}</span>
         </strong>
+        <div>
+          <strong>
+            Última experiência: <span>{lastExperience}</span>
+          </strong>
+        </div>
       </InfosCharacter>
 
       <form onSubmit={(e) => handleSubmitExperience(e, character.id)}>
@@ -131,7 +165,26 @@ export function CardCharacter({ character, campaignId }: CardCharacterProps) {
         </button>
       </form>
 
-      <ActionDialog onClick={handleDeleteCharacter} />
+      <DropdownMenu
+        ItemExcludeCharacter={
+          <AlertDialog
+            title="Excluir Personagem"
+            buttonName="Apagar Personagem"
+            description="Tem certeza que deseja excluir permanentemente esse personagem?"
+            buttonConfirm="Deletar personagem"
+            onClick={handleDeleteCharacter}
+          />
+        }
+        ItemExcludeExperience={
+          <AlertDialog
+            title="Excluir Experiência"
+            buttonName="Apagar experiência"
+            description="Tem certeza que deseja excluir permanentemente a última pontuação de experiência adicionada?"
+            buttonConfirm="Deletar experiência"
+            onClick={handleDeleteLastExperience}
+          />
+        }
+      />
     </Container>
   )
 }

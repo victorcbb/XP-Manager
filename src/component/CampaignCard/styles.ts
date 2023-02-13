@@ -24,6 +24,7 @@ export const Container = styled(Link)`
     color: ${({ theme }) => theme['gray-500']};
 
     margin: 0.75rem 0;
+    overflow-y: hidden;
   }
 
   > span {

@@ -13,27 +13,36 @@ import {
 
 interface ActionDialogProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   onClick: () => void
+  buttonName: string
+  title: string
+  description: string
+  buttonConfirm: string
 }
 
-export function ActionDialog({ onClick, ...rest }: ActionDialogProps) {
+export function AlertDialog({
+  onClick,
+  buttonName,
+  title,
+  description,
+  buttonConfirm,
+  ...rest
+}: ActionDialogProps) {
   return (
     <Root>
       <Trigger>
-        <button type="button">Excluir</button>
+        <button type="button">{buttonName}</button>
       </Trigger>
       <Portal>
         <Overlay />
         <Content>
-          <Title>Excluir Personagem</Title>
-          <Description>
-            Tem certeza que deseja excluir permanentemente esse persoangem?
-          </Description>
+          <Title>{title}</Title>
+          <Description>{description}</Description>
           <div>
             <Cancel>
               <button type="button">Cancelar</button>
             </Cancel>
             <Action onClick={onClick} type="button">
-              <button>Deletar personagem</button>
+              <button>{buttonConfirm}</button>
             </Action>
           </div>
         </Content>

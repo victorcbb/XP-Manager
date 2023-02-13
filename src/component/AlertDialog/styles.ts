@@ -8,13 +8,9 @@ export const Trigger = styled(AlertDialog.Trigger)`
   border: none;
 
   > button {
-    position: absolute;
-    top: 1.5rem;
-    right: 1.5rem;
-
     background: none;
     border: none;
-    color: ${({ theme }) => theme['red-600']};
+    color: ${({ theme }) => theme['red-500']};
 
     cursor: pointer;
   }

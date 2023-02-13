@@ -12,6 +12,21 @@ export const Content = styled.main`
   overflow-y: overlay;
 
   margin: 0 auto;
+
+  > div {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  h1 {
+    margin-top: 1rem;
+  }
+
+  > p {
+    margin: 1rem 0;
+  }
 `
 
 export const CharactersList = styled.div`

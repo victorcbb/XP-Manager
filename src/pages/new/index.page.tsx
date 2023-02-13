@@ -30,7 +30,7 @@ export default function New() {
     e.preventDefault()
 
     if (!campaignName) {
-      return toast.warning('O campo DO nome da campanha deve ser preenchido.')
+      return toast.warning('Adicione um nome para a sua campanha.')
     }
 
     if (!description) {

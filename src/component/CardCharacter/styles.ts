@@ -41,7 +41,8 @@ export const InfosCharacter = styled.div`
   display: flex;
   flex-direction: column;
 
-  p {
+  > p {
+    margin-bottom: 0.25rem;
     font-size: 0.875rem;
   }
 
@@ -51,6 +52,28 @@ export const InfosCharacter = styled.div`
       font-size: 1.125rem;
       color: ${({ theme }) => theme['orange-600']};
       letter-spacing: 2px;
+    }
+  }
+  > div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin: 0.5rem 0;
+
+    > button {
+      height: 1.5rem;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.125rem;
+
+      padding: 0 0.5rem;
+
+      border: 1px solid ${({ theme }) => theme['orange-900']};
+      border-radius: 4px;
+      background: ${({ theme }) => theme['gray-100']};
     }
   }
 `

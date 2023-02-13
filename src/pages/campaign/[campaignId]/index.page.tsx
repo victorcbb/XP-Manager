@@ -7,6 +7,7 @@ import { Header } from '../../../component/Header'
 import { useCharacters } from '../../../context/CharacterContext'
 
 import { prisma } from '../../../lib/prisma'
+import { EditDescription } from '../components/EditDescription'
 import { CharactersList, Container, Content } from './styles'
 
 interface IExperience {
@@ -42,7 +43,13 @@ export default function Campaign({ campaign }: CampaignProps) {
     <Container>
       <Header />
       <Content>
-        <BackLink />
+        <div>
+          <BackLink />
+          <EditDescription
+            description={campaign.description}
+            campaignId={campaign.id}
+          />
+        </div>
         <h1>{campaign.name}</h1>
         <p>{campaign.description}</p>
         <h2>Personagens</h2>

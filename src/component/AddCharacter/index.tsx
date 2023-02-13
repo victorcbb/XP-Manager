@@ -16,11 +16,20 @@ interface AddCharacterProps {
 export function AddCharacter({ campaignId }: AddCharacterProps) {
   const [name, setName] = useState('')
   const [playerName, setPlayerName] = useState('')
+  const [open, setOpen] = useState(false)
 
   const { fetchCharacters } = useCharacters()
 
   async function handleAddNewCharacter(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
+
+    if (!name) {
+      return toast.info('Insira o nome do personagem')
+    }
+
+    if (!playerName) {
+      return toast.info('Insira o nome do jogador')
+    }
 
     console.log(campaignId, name, playerName)
     try {
@@ -38,11 +47,13 @@ export function AddCharacter({ campaignId }: AddCharacterProps) {
       if (err instanceof AxiosError && err.response?.data?.message) {
         return toast.error(err.response.data.message)
       }
+    } finally {
+      setOpen(false)
     }
   }
 
   return (
-    <Root>
+    <Root open={open} onOpenChange={setOpen}>
       <Trigger asChild>
         <button>Adicionar Personagem</button>
       </Trigger>
