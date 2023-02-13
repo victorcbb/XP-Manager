@@ -35,6 +35,7 @@ export function CardCharacter({ character, campaignId }: CardCharacterProps) {
   const [experience, setExperience] = useState(0)
   const [amountExperience, setAmountExperience] = useState(0)
   const [lastExperience, setLastExperience] = useState(0)
+  const [open, setOpen] = useState(false)
 
   const { fetchCharacters } = useCharacters()
 
@@ -101,22 +102,22 @@ export function CardCharacter({ character, campaignId }: CardCharacterProps) {
       if (err instanceof AxiosError && err.response?.data?.message) {
         return toast.error(err.response.data.message)
       }
+    } finally {
+      setOpen(false)
     }
   }
 
   async function handleDeleteLastExperience() {
     try {
-      console.log(
-        character.id,
-        character.experiences.at(-1)?.id,
-        character.experiences.at(-1)?.points,
-      )
-
-      toast.success('Experiência excluída.')
+      await api.delete(`/experience/delete/${character.experiences.at(-1)?.id}`)
+      lastExperienceCharacter(character.id)
+      toast.success('Ultima pontuação de experiência deletada.')
     } catch (err) {
       if (err instanceof AxiosError && err.response?.data?.message) {
         return toast.error(err.response.data.message)
       }
+    } finally {
+      setOpen(false)
     }
   }
 
@@ -166,6 +167,8 @@ export function CardCharacter({ character, campaignId }: CardCharacterProps) {
       </form>
 
       <DropdownMenu
+        open={open}
+        setOpen={setOpen}
         ItemExcludeCharacter={
           <AlertDialog
             title="Excluir Personagem"

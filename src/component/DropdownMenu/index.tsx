@@ -5,14 +5,18 @@ import { Arrow, Content, Item, Portal, Root, Trigger } from './styles'
 interface DropdownMenuProps {
   ItemExcludeCharacter: ReactNode
   ItemExcludeExperience: ReactNode
+  open: boolean
+  setOpen: (value: boolean) => void
 }
 
 export function DropdownMenu({
   ItemExcludeCharacter,
   ItemExcludeExperience,
+  open,
+  setOpen,
 }: DropdownMenuProps) {
   return (
-    <Root>
+    <Root open={open} onOpenChange={setOpen}>
       <Trigger asChild>
         <button>
           <BsThreeDotsVertical />
@@ -21,8 +25,8 @@ export function DropdownMenu({
       <Portal>
         <Content sideOffset={5} side="bottom">
           <Arrow />
-          <Item>{ItemExcludeCharacter}</Item>
-          <Item>{ItemExcludeExperience}</Item>
+          <Item asChild>{ItemExcludeCharacter}</Item>
+          <Item asChild>{ItemExcludeExperience}</Item>
         </Content>
       </Portal>
     </Root>
