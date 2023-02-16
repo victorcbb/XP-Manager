@@ -11,7 +11,7 @@ export const Trigger = styled(Dialog.Trigger)`
   justify-content: center;
   gap: 0.5rem;
 
-  margin: 0 auto;
+  margin: 0.5rem auto 2rem;
   padding: 0.5rem 1rem;
 
   background: ${({ theme }) => theme['blue-600']};

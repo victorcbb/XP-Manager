@@ -1,39 +1,40 @@
-import { GetStaticPaths, GetStaticProps } from 'next'
+import { GetServerSideProps } from 'next'
 import { useEffect } from 'react'
+import { parseCookies } from 'nookies'
+
 import { AddCharacter } from '../../../component/AddCharacter'
 import { BackLink } from '../../../component/BackLink'
 import { CardCharacter } from '../../../component/CardCharacter'
 import { Header } from '../../../component/Header'
+import { SelectTemplateExperience } from '../../../component/SelectTemplateExperience'
 import { useCharacters } from '../../../context/CharacterContext'
-
 import { prisma } from '../../../lib/prisma'
 import { EditDescription } from '../components/EditDescription'
 import { CharactersList, Container, Content } from './styles'
-
-interface IExperience {
-  id: number
-  points: number
-  created_at: string
-}
-
-interface ICharacter {
-  id: string
-  name: string
-  player_name: string
-  experiences: IExperience[]
-}
 
 interface CampaignProps {
   campaign: {
     id: string
     name: string
     description: string
-    characters: ICharacter[]
   }
+  experienceTemplates: [
+    {
+      campaignId: string
+      template: string
+    },
+  ]
 }
 
-export default function Campaign({ campaign }: CampaignProps) {
-  const { characters, fetchCharacters } = useCharacters()
+export default function Campaign({
+  campaign,
+  experienceTemplates,
+}: CampaignProps) {
+  const { fetchCharacters, characters } = useCharacters()
+
+  const filteredExperienceTempate = experienceTemplates.filter(
+    (experienceTemplate) => experienceTemplate.campaignId === campaign.id,
+  )[0]?.template
 
   useEffect(() => {
     fetchCharacters(campaign.id)
@@ -52,6 +53,11 @@ export default function Campaign({ campaign }: CampaignProps) {
         </div>
         <h1>{campaign.name}</h1>
         <p>{campaign.description}</p>
+        <h2>Progressão dos personagens</h2>
+        <SelectTemplateExperience
+          campaignId={campaign.id}
+          experienceTemplates={experienceTemplates}
+        />
         <h2>Personagens</h2>
         <CharactersList>
           {characters &&
@@ -60,6 +66,7 @@ export default function Campaign({ campaign }: CampaignProps) {
                 key={character.id}
                 character={character}
                 campaignId={campaign.id}
+                experienceTemplate={filteredExperienceTempate}
               />
             ))}
         </CharactersList>
@@ -69,26 +76,18 @@ export default function Campaign({ campaign }: CampaignProps) {
   )
 }
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  return {
-    paths: [],
-    fallback: 'blocking',
-  }
-}
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const cookies = parseCookies(context)
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const campaignId = String(params?.campaignId)
+  if (cookies.EXPERIENCE_TEMPLATE) {
+    console.log('[cookies]', JSON.parse(cookies.EXPERIENCE_TEMPLATE))
+  }
+
+  const campaignId = context.params?.campaignId
 
   const campaign = await prisma.campaign.findUnique({
     where: {
-      id: campaignId,
-    },
-    include: {
-      characters: {
-        include: {
-          experiences: true,
-        },
-      },
+      id: String(campaignId),
     },
   })
 
@@ -105,7 +104,14 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         name: campaign.name,
         description: campaign.description,
       },
+      experienceTemplates: cookies.EXPERIENCE_TEMPLATE
+        ? JSON.parse(cookies.EXPERIENCE_TEMPLATE)
+        : [
+            {
+              campaignId: campaign.id,
+              template: 'Pathfinder-BloodBrothers-template',
+            },
+          ],
     },
-    revalidate: 60 * 60 * 24, // 1 day
   }
 }

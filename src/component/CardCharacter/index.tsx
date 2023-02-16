@@ -29,15 +29,20 @@ interface CardCharacterProps {
     experiences: IExperience[]
   }
   campaignId: string
+  experienceTemplate: string
 }
 
-export function CardCharacter({ character, campaignId }: CardCharacterProps) {
+export function CardCharacter({
+  character,
+  campaignId,
+  experienceTemplate,
+}: CardCharacterProps) {
   const [experience, setExperience] = useState(0)
   const [amountExperience, setAmountExperience] = useState(0)
   const [lastExperience, setLastExperience] = useState(0)
   const [open, setOpen] = useState(false)
 
-  const { fetchCharacters } = useCharacters()
+  const { fetchCharacters, templateExperience } = useCharacters()
 
   async function handleSubmitExperience(
     e: FormEvent<HTMLFormElement>,
@@ -61,6 +66,7 @@ export function CardCharacter({ character, campaignId }: CardCharacterProps) {
 
       incrementExperienceCharacter(character.id)
       lastExperienceCharacter(character.id)
+      fetchCharacters(campaignId)
 
       toast.success('Pontuação de experiência adicionada com sucesso.')
     } catch (err) {
@@ -73,9 +79,9 @@ export function CardCharacter({ character, campaignId }: CardCharacterProps) {
   async function incrementExperienceCharacter(characterId: string) {
     const result = await api.get(`/character/experience/${characterId}`)
 
-    const onlyxp: IOnlyExperienceCharacter[] = result.data
+    const onlyXp: IOnlyExperienceCharacter[] = result.data
 
-    const amount = onlyxp.reduce(
+    const amount = onlyXp.reduce(
       (acc, currentValue) => acc + currentValue.points,
       0,
     )
@@ -108,9 +114,17 @@ export function CardCharacter({ character, campaignId }: CardCharacterProps) {
   }
 
   async function handleDeleteLastExperience() {
+    if (amountExperience === 0) {
+      return toast.error(
+        'Esse personagem não possui pontos de experiência ainda.',
+      )
+    }
+
+    console.log(character.experiences.at(-1)?.id)
+
     try {
       await api.delete(`/experience/delete/${character.experiences.at(-1)?.id}`)
-      lastExperienceCharacter(character.id)
+      fetchCharacters(campaignId)
       toast.success('Ultima pontuação de experiência deletada.')
     } catch (err) {
       if (err instanceof AxiosError && err.response?.data?.message) {
@@ -140,14 +154,17 @@ export function CardCharacter({ character, campaignId }: CardCharacterProps) {
         <h3>{character.name}</h3>
         <p>{character.player_name}</p>
         <strong>
-          Nível: <span>{levelCalculator(amountExperience)}</span>
+          Nível:{' '}
+          <span>{levelCalculator(amountExperience, templateExperience)}</span>
         </strong>
         <strong>
-          Pontos de experiência: <span>{amountExperience}</span>
+          Pontos de experiência:{' '}
+          <span>{amountExperience.toLocaleString('pt-br')}</span>
         </strong>
         <div>
           <strong>
-            Última experiência: <span>{lastExperience}</span>
+            Última experiência:{' '}
+            <span>{lastExperience.toLocaleString('pt-br')}</span>
           </strong>
         </div>
       </InfosCharacter>

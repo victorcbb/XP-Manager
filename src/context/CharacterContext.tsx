@@ -1,6 +1,7 @@
-import { AxiosError } from 'axios'
 import { createContext, ReactNode, useContext, useState } from 'react'
 import { toast } from 'react-toastify'
+import { AxiosError } from 'axios'
+
 import { api } from '../lib/axios'
 
 interface CharacterProviderProps {
@@ -23,12 +24,17 @@ interface ICharacter {
 interface CharacterContextData {
   characters: ICharacter[]
   fetchCharacters: (campaignId: string) => void
+  templateExperience: string
+  fetchTemplate: (template: string) => void
 }
 
 const CharacterContext = createContext({} as CharacterContextData)
 
 export function CharacterProvider({ children }: CharacterProviderProps) {
+  const [templateExperience, setTemplateExperience] = useState('')
   const [characters, setCharacters] = useState<ICharacter[]>([])
+
+  console.log(templateExperience)
 
   async function fetchCharacters(campaignId: string) {
     try {
@@ -42,8 +48,19 @@ export function CharacterProvider({ children }: CharacterProviderProps) {
     }
   }
 
+  function fetchTemplate(template: string) {
+    setTemplateExperience(template)
+  }
+
   return (
-    <CharacterContext.Provider value={{ characters, fetchCharacters }}>
+    <CharacterContext.Provider
+      value={{
+        characters,
+        fetchCharacters,
+        templateExperience,
+        fetchTemplate,
+      }}
+    >
       {children}
     </CharacterContext.Provider>
   )

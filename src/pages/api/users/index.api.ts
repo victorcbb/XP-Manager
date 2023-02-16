@@ -35,4 +35,11 @@ export default async function handler(
 
     return res.status(204).json(user)
   }
+
+  setCookie({ res }, '@xp-manager:userId', userExists.id, {
+    maxAge: 60 * 60 * 24 * 10, // 10 days
+    path: '/',
+  })
+
+  return res.status(200).json(userExists)
 }
