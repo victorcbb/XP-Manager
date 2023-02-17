@@ -11,6 +11,7 @@ import { useCharacters } from '../../../context/CharacterContext'
 import { prisma } from '../../../lib/prisma'
 import { EditDescription } from '../components/EditDescription'
 import { CharactersList, Container, Content } from './styles'
+import { ButtonLink } from '../../../component/ButtonLink'
 
 interface CampaignProps {
   campaign: {
@@ -58,7 +59,13 @@ export default function Campaign({
           campaignId={campaign.id}
           experienceTemplates={experienceTemplates}
         />
-        <h2>Personagens</h2>
+        <div>
+          <h2>Personagens</h2>
+          <ButtonLink
+            path={`/campaign/${campaign.id}/character-table`}
+            title="Tabela"
+          />
+        </div>
         <CharactersList>
           {characters &&
             characters.map((character) => (
@@ -78,10 +85,6 @@ export default function Campaign({
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const cookies = parseCookies(context)
-
-  if (cookies.EXPERIENCE_TEMPLATE) {
-    console.log('[cookies]', JSON.parse(cookies.EXPERIENCE_TEMPLATE))
-  }
 
   const campaignId = context.params?.campaignId
 
