@@ -7,7 +7,6 @@ export const Trigger = styled(DropdownMenu.Trigger)`
   background: none;
   border: none;
   border-radius: 999px;
-  padding: 0.25rem;
 
   line-height: 0;
 
@@ -52,12 +51,16 @@ export const Content = styled(DropdownMenu.Content)`
 
 export const Item = styled(DropdownMenu.Item)`
   width: 100%;
-  height: 1.5rem;
+  height: 1.75rem;
+
   font-size: 0.875rem;
-  line-height: 1.6;
+  line-height: 1.4;
+  color: ${({ theme }) => theme['red-600']};
 
   display: flex;
-  justify-content: flex-start;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
 
   border-radius: 4px;
   padding: 0 0.25rem;

@@ -29,7 +29,7 @@ export function UserHeaderButton({
         <button>{children}</button>
       </Trigger>
       <Portal>
-        <Content sideOffset={5} side="bottom">
+        <Content sideOffset={4} side="bottom">
           <Arrow />
           <Item onClick={handleLogout}>
             Sair <FiLogOut />
