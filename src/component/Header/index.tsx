@@ -3,8 +3,12 @@ import Image from 'next/image'
 import { useSession } from 'next-auth/react'
 
 import { Container, ContentHeader, UserInfos } from './styles'
+import { UserHeaderButton } from '../UserHeaderButton'
+import { useState } from 'react'
 
 export function Header() {
+  const [open, setOpen] = useState(false)
+
   const session = useSession()
   return (
     <Container>
@@ -18,13 +22,15 @@ export function Header() {
             <strong>{session?.data?.user.name}</strong>
             <span>{session?.data?.user.email}</span>
           </div>
-          <Image
-            src={session?.data?.user.avatar_url!}
-            alt={`Foto do perfil de ${session?.data?.user.name}`}
-            width={52}
-            height={52}
-            quality={100}
-          />
+          <UserHeaderButton open={open} setOpen={setOpen}>
+            <Image
+              src={session?.data?.user.avatar_url!}
+              alt={`Foto do perfil de ${session?.data?.user.name}`}
+              width={52}
+              height={52}
+              quality={100}
+            />
+          </UserHeaderButton>
         </UserInfos>
       </ContentHeader>
     </Container>

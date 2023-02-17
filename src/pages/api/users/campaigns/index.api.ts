@@ -25,6 +25,9 @@ export default async function handle(
     orderBy: {
       created_at: 'desc',
     },
+    where: {
+      user_id: session.user.id,
+    },
     include: {
       characters: true,
     },
