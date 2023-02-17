@@ -85,7 +85,8 @@ export default function CharacterTable({
                           (accumulator, currentValue) =>
                             accumulator + currentValue.points,
                           0,
-                        )}
+                        )
+                        .toLocaleString('pt-br')}
                     </td>
                     <td>
                       {levelCalculator(

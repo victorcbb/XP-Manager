@@ -155,7 +155,12 @@ export function CardCharacter({
         <p>{character.player_name}</p>
         <strong>
           Nível:{' '}
-          <span>{levelCalculator(amountExperience, templateExperience)}</span>
+          <span>
+            {levelCalculator(
+              amountExperience,
+              templateExperience || experienceTemplate,
+            )}
+          </span>
         </strong>
         <strong>
           Pontos de experiência:{' '}
