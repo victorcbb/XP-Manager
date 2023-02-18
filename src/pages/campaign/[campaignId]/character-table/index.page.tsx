@@ -76,7 +76,7 @@ export default function CharacterTable({
                     <td>
                       {character.experiences
                         .at(-1)
-                        ?.points.toLocaleString('pt-br')}
+                        ?.points.toLocaleString('pt-br') || '0'}
                     </td>
                     <td>
                       {character.experiences

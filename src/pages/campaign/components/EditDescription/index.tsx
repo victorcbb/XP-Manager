@@ -27,6 +27,16 @@ export function EditDescription({
       return
     }
 
+    if (
+      /^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ0-9\s.,:!?]+$/.test(
+        newDescription,
+      ) === false
+    ) {
+      return toast.info(
+        'O campo da descrição deve ter apenas letras, números, acentos e pontuações',
+      )
+    }
+
     try {
       await api.put('/campaign/update-description', {
         campaignId,

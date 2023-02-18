@@ -55,6 +55,16 @@ export default function Dashboard() {
 
   useEffect(() => {
     async function fetchCampaign() {
+      if (
+        /^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ0-9\s]+$/.test(search) ===
+          false &&
+        search.length > 0
+      ) {
+        return toast.info(
+          'O campo do nome deve ter apenas letras, números e acentos',
+        )
+      }
+
       const response = await api.get(`/users/campaigns/${search}`)
 
       setCampaigns(response.data)

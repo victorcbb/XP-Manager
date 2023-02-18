@@ -23,8 +23,25 @@ export function AddCharacter({ campaignId }: AddCharacterProps) {
   async function handleAddNewCharacter(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
 
+    if (
+      /^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ0-9\s]+$/.test(name) === false
+    ) {
+      return toast.info(
+        'O campo do nome do personagem deve ter apenas letras, números e acentos',
+      )
+    }
+
     if (!name) {
       return toast.info('Insira o nome do personagem')
+    }
+
+    if (
+      /^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ0-9\s]+$/.test(playerName) ===
+      false
+    ) {
+      return toast.info(
+        'O campo do nome do personagem deve ter apenas letras, números e acentos',
+      )
     }
 
     if (!playerName) {

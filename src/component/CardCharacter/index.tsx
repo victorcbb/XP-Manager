@@ -50,6 +50,10 @@ export function CardCharacter({
   ) {
     e.preventDefault()
 
+    if (/^[0-9]+$/.test(String(experience)) === false) {
+      return toast.info('Insira apenas números.')
+    }
+
     if (experience === 0) {
       return toast.warn(
         `Informe a quantidade de experiencia de ${character.name}`,

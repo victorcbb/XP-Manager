@@ -33,8 +33,48 @@ export default function New() {
       return toast.warning('Adicione um nome para a sua campanha.')
     }
 
+    if (
+      /^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ0-9\s]+$/.test(campaignName) ===
+      false
+    ) {
+      return toast.info(
+        'O campo do nome deve ter apenas letras, números e acentos',
+      )
+    }
+
     if (!description) {
       return toast.warning('O campo da descrição deve ser preenchido.')
+    }
+
+    if (
+      /^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ0-9\s.,:!?]+$/.test(
+        description,
+      ) === false
+    ) {
+      return toast.info(
+        'O campo da descrição deve ter apenas letras, números, acentos e pontuações',
+      )
+    }
+
+    if (
+      /^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ0-9\s]+$/.test(
+        newCharacterName,
+      ) === false &&
+      newCharacterName.length > 0
+    ) {
+      return toast.info(
+        'O campo do nome do personagem deve ter apenas letras, números e acentos',
+      )
+    }
+
+    if (
+      /^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ0-9\s]+$/.test(newPlayerName) ===
+        false &&
+      newPlayerName.length > 0
+    ) {
+      return toast.info(
+        'O campo do nome do personagem deve ter apenas letras, números e acentos',
+      )
     }
 
     if (newCharacterName || newPlayerName) {
