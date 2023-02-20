@@ -27,4 +27,9 @@ export const Container = styled.button`
     filter: grayscale(0.5);
     cursor: not-allowed;
   }
+
+  @media (min-width: 1200px) {
+    height: 2.625rem;
+    font-size: 1.25rem;
+  }
 `

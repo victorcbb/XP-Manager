@@ -26,6 +26,14 @@ export const Container = styled.main`
     background-position: 50% 0;
     background-size: cover;
   }
+  @media (min-width: 120px) {
+    &:before {
+      width: 110%;
+      height: 110%;
+      left: -60px;
+      top: -40px;
+    }
+  }
 `
 
 export const Content = styled.div`
@@ -39,40 +47,47 @@ export const Content = styled.div`
 
   p {
     font-size: 1.125rem;
+    line-height: 1.4;
 
     span:first-child {
       font-family: 'Permanent Marker', cursive;
       color: ${({ theme }) => theme['orange-600']};
       font-size: 1.5rem;
+      line-height: 1;
     }
 
     span:nth-child(2) {
       font-family: 'Fredoka One', cursive;
       color: ${({ theme }) => theme['blue-600']};
       font-size: 1.25rem;
+      line-height: 1;
+    }
+
+    a {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 500;
+      color: ${({ theme }) => theme['gray-800']};
+      text-decoration: underline;
     }
   }
 
-  > a {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
+  @media (min-width: 120px) {
+    width: min(28rem, 90%);
 
-    padding: 0.5rem 1.5rem;
-    background: ${({ theme }) => theme['blue-600']};
-    border: none;
-    border-radius: 999px;
+    p {
+      font-size: 1.25rem;
 
-    font-weight: 500;
-    font-size: 1.125rem;
-    color: ${({ theme }) => theme.white};
-    line-height: 1.6;
+      span:first-child {
+        font-family: 'Permanent Marker', cursive;
+        color: ${({ theme }) => theme['orange-600']};
+        font-size: 1.75rem;
+      }
 
-    transition: 0.2s all;
-
-    &:hover {
-      filter: brightness(0.8);
+      span:nth-child(2) {
+        font-family: 'Fredoka One', cursive;
+        color: ${({ theme }) => theme['blue-600']};
+        font-size: 1.5rem;
+      }
     }
   }
 `

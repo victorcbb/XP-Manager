@@ -24,4 +24,9 @@ export const Container = styled(Link)`
   &:hover {
     filter: brightness(0.8);
   }
+
+  @media (min-width: 1200px) {
+    height: 2.625rem;
+    font-size: 1.25rem;
+  }
 `
