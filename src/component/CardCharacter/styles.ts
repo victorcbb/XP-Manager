@@ -33,6 +33,16 @@ export const Container = styled.div`
       border: 1px solid ${({ theme }) => theme['orange-900']};
       border-radius: 4px;
       background: ${({ theme }) => theme['gray-100']};
+      transition: 0.2s all;
+
+      &:hover:not(:disabled) {
+        filter: brightness(0.9);
+      }
+
+      &:disabled {
+        filter: grayscale(0.5);
+        cursor: not-allowed;
+      }
     }
   }
 `

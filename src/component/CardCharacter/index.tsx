@@ -2,6 +2,7 @@ import { AxiosError } from 'axios'
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
 import { BsPlusCircle } from 'react-icons/bs'
 import { toast } from 'react-toastify'
+import ContentLoader from 'react-content-loader'
 
 import { api } from '../../lib/axios'
 import { levelCalculator } from '../../utils/level-calculator'
@@ -41,6 +42,7 @@ export function CardCharacter({
   const [amountExperience, setAmountExperience] = useState(0)
   const [lastExperience, setLastExperience] = useState(0)
   const [open, setOpen] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
 
   const { fetchCharacters, templateExperience } = useCharacters()
 
@@ -81,6 +83,8 @@ export function CardCharacter({
   }
 
   async function incrementExperienceCharacter(characterId: string) {
+    setIsLoading(true)
+
     try {
       const result = await api.get(`/character/experience/${characterId}`)
 
@@ -95,10 +99,14 @@ export function CardCharacter({
       if (err instanceof AxiosError && err.response?.data?.message) {
         return toast.error(err.response.data.message)
       }
+    } finally {
+      setIsLoading(false)
     }
   }
 
   async function lastExperienceCharacter(characterId: string) {
+    setIsLoading(true)
+
     try {
       const result = await api.get(`/character/experience/${characterId}`)
 
@@ -112,6 +120,8 @@ export function CardCharacter({
       if (err instanceof AxiosError && err.response?.data?.message) {
         return toast.error(err.response.data.message)
       }
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -162,6 +172,27 @@ export function CardCharacter({
     lastExperienceCharacter(character.id)
   }, [character.experiences, character.id])
 
+  if (isLoading) {
+    return (
+      <Container>
+        <ContentLoader
+          speed={2}
+          width="100%"
+          height={200}
+          viewBox="0 0 400 160"
+          backgroundColor="#c4c4c4"
+          foregroundColor="#BEE3F8"
+        >
+          <rect x="4" y="8" rx="6" ry="6" width="148" height="12" />
+          <rect x="4" y="26" rx="6" ry="6" width="108" height="12" />
+          <rect x="0" y="76" rx="8" ry="8" width="110" height="16" />
+          <rect x="0" y="102" rx="8" ry="8" width="300" height="16" />
+          <rect x="0" y="128" rx="8" ry="8" width="178" height="16" />
+        </ContentLoader>
+      </Container>
+    )
+  }
+
   return (
     <Container>
       <InfosCharacter>
@@ -197,7 +228,7 @@ export function CardCharacter({
             setExperience(e.target.valueAsNumber)
           }
         />
-        <button type="submit">
+        <button type="submit" disabled={isLoading}>
           <BsPlusCircle /> Adicionar XP
         </button>
       </form>

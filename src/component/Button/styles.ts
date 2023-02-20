@@ -19,11 +19,11 @@ export const Container = styled.button`
 
   transition: 0.2s all;
 
-  &:hover {
+  &:hover:not(:disabled) {
     filter: brightness(0.8);
   }
 
-  &:disabled:not(:hover) {
+  &:disabled {
     filter: grayscale(0.5);
     cursor: not-allowed;
   }
