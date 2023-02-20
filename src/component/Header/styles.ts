@@ -9,7 +9,7 @@ export const Container = styled.header`
   justify-content: center;
   align-items: center;
 
-  margin-bottom: 2rem;
+  /* margin-bottom: 2rem; */
   border-bottom: 1px solid ${({ theme }) => theme['blue-600']};
   box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
 `

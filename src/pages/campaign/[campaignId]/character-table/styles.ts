@@ -13,7 +13,7 @@ export const Content = styled.main`
   grid-area: main;
   width: min(75rem, 95%);
   height: fit-content;
-  margin: 0 auto;
+  margin: 2rem auto 0;
   overflow-x: auto;
 `
 

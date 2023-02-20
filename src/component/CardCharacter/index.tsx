@@ -81,26 +81,38 @@ export function CardCharacter({
   }
 
   async function incrementExperienceCharacter(characterId: string) {
-    const result = await api.get(`/character/experience/${characterId}`)
+    try {
+      const result = await api.get(`/character/experience/${characterId}`)
 
-    const onlyXp: IOnlyExperienceCharacter[] = result.data
+      const onlyXp: IOnlyExperienceCharacter[] = result.data
 
-    const amount = onlyXp.reduce(
-      (acc, currentValue) => acc + currentValue.points,
-      0,
-    )
-    setAmountExperience(amount)
+      const amount = onlyXp.reduce(
+        (acc, currentValue) => acc + currentValue.points,
+        0,
+      )
+      setAmountExperience(amount)
+    } catch (err) {
+      if (err instanceof AxiosError && err.response?.data?.message) {
+        return toast.error(err.response.data.message)
+      }
+    }
   }
 
   async function lastExperienceCharacter(characterId: string) {
-    const result = await api.get(`/character/experience/${characterId}`)
+    try {
+      const result = await api.get(`/character/experience/${characterId}`)
 
-    const onlyxp: IOnlyExperienceCharacter[] = result.data
+      const onlyxp: IOnlyExperienceCharacter[] = result.data
 
-    const filteredLastExperience = onlyxp.at(-1)?.points
-    setLastExperience(filteredLastExperience || 0)
+      const filteredLastExperience = onlyxp.at(-1)?.points
+      setLastExperience(filteredLastExperience || 0)
 
-    incrementExperienceCharacter(characterId)
+      incrementExperienceCharacter(characterId)
+    } catch (err) {
+      if (err instanceof AxiosError && err.response?.data?.message) {
+        return toast.error(err.response.data.message)
+      }
+    }
   }
 
   async function handleDeleteCharacter() {

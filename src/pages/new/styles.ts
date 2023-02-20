@@ -9,7 +9,7 @@ export const Content = styled.form`
   max-height: calc(100vh - 7.5rem);
   overflow-y: auto;
 
-  margin: 0 auto;
+  margin: 2rem auto 0;
 
   > h3 {
     margin: 1rem 0 0.5rem;

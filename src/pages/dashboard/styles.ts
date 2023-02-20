@@ -8,7 +8,7 @@ export const Content = styled.main`
   width: min(75rem, 90%);
   max-height: calc(100vh - 4.5rem - 3rem);
 
-  margin: 0 auto;
+  margin: 2rem auto 0;
   padding: 1rem 1rem 1rem;
 
   background: ${({ theme }) => theme['gray-100']};

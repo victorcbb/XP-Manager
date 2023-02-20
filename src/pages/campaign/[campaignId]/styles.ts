@@ -11,7 +11,7 @@ export const Content = styled.main`
   overflow-y: auto;
   overflow-y: overlay;
 
-  margin: 0 auto;
+  margin: 2rem auto 0;
 
   > div {
     width: 100%;
