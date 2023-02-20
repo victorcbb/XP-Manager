@@ -1,6 +1,7 @@
 import { GetServerSideProps } from 'next'
 import { useEffect } from 'react'
 import { parseCookies } from 'nookies'
+import { useRouter } from 'next/router'
 
 import { AddCharacter } from '../../../component/AddCharacter'
 import { BackLink } from '../../../component/BackLink'
@@ -13,6 +14,9 @@ import { EditDescription } from '../components/EditDescription'
 import { CharactersList, Container, Content, Divisor } from './styles'
 import { ButtonLink } from '../../../component/ButtonLink'
 import { ExcludCampaign } from './component/ExcludCampaign'
+import { api } from '../../../lib/axios'
+import { toast } from 'react-toastify'
+import { AxiosError } from 'axios'
 
 interface CampaignProps {
   campaign: {
@@ -34,12 +38,24 @@ export default function Campaign({
 }: CampaignProps) {
   const { fetchCharacters, characters } = useCharacters()
 
-  const filteredExperienceTempate = experienceTemplates.filter(
-    (experienceTemplate) => experienceTemplate.campaignId === campaign.id,
-  )[0]?.template
+  const router = useRouter()
+
+  const filteredExperienceTempate =
+    experienceTemplates.filter(
+      (experienceTemplate) => experienceTemplate.campaignId === campaign.id,
+    )[0]?.template || 'Pathfinder-BloodBrothers-template'
 
   async function handleDeleteCampaign() {
-    console.log(campaign.id)
+    try {
+      await api.delete(`/campaign/delete-campaign/${campaign.id}`)
+
+      toast.success('Campanha excluída com sucesso!')
+      await router.push('/dashboard')
+    } catch (err) {
+      if (err instanceof AxiosError && err.response?.data?.message) {
+        return toast.error(err.response.data.message)
+      }
+    }
   }
 
   useEffect(() => {

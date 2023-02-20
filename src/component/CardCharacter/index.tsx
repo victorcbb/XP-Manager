@@ -124,8 +124,6 @@ export function CardCharacter({
       )
     }
 
-    console.log(character.experiences.at(-1)?.id)
-
     try {
       await api.delete(`/experience/delete/${character.experiences.at(-1)?.id}`)
       fetchCharacters(campaignId)

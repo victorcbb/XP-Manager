@@ -34,8 +34,6 @@ export function CharacterProvider({ children }: CharacterProviderProps) {
   const [templateExperience, setTemplateExperience] = useState('')
   const [characters, setCharacters] = useState<ICharacter[]>([])
 
-  console.log(templateExperience)
-
   async function fetchCharacters(campaignId: string) {
     try {
       const result = await api.get(`character/find-characters/${campaignId}`)

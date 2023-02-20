@@ -48,7 +48,6 @@ export function AddCharacter({ campaignId }: AddCharacterProps) {
       return toast.info('Insira o nome do jogador')
     }
 
-    console.log(campaignId, name, playerName)
     try {
       await api.post('character/new', {
         campaignId,
