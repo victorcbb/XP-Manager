@@ -4,16 +4,13 @@ import styled from 'styled-components'
 export const Root = styled(AlertDialog.Root)``
 
 export const Trigger = styled(AlertDialog.Trigger)`
+  display: block;
+  margin: 1.5rem auto 1rem;
   background: transparent;
   border: none;
+  color: ${({ theme }) => theme['red-600']};
 
-  > button {
-    background: none;
-    border: none;
-    color: ${({ theme }) => theme['red-600']};
-
-    cursor: pointer;
-  }
+  cursor: pointer;
 `
 
 export const Portal = styled(AlertDialog.Portal)``
@@ -56,6 +53,7 @@ export const Content = styled(AlertDialog.Content)`
     display: flex;
     align-items: center;
     gap: 1rem;
+    justify-content: end;
 
     height: 2.5rem;
   }
@@ -70,7 +68,7 @@ export const Title = styled(AlertDialog.Title)`
 
 export const Description = styled(AlertDialog.Description)`
   font-family: 'Roboto', sans-serif;
-  margin-block: 1rem;
+  margin: 1rem 0 1.25rem;
 `
 
 export const Cancel = styled(AlertDialog.Cancel)`

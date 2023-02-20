@@ -59,7 +59,7 @@ model Campaign {
   user_id     String?
 
   characters Character[]
-  User       User?       @relation(fields: [user_id], references: [id])
+  User       User?       @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
   @@map("campaigns")
 }
@@ -73,7 +73,7 @@ model Character {
   campaign_id String?
 
   experiences Experience[]
-  Campaign    Campaign?    @relation(fields: [campaign_id], references: [id])
+  Campaign    Campaign?    @relation(fields: [campaign_id], references: [id], onDelete: Cascade)
 
   @@map("characters")
 }
@@ -82,7 +82,7 @@ model Experience {
   id           Int        @id @default(autoincrement())
   points       Int
   created_at   DateTime   @default(now())
-  Character    Character? @relation(fields: [character_id], references: [id])
+  Character    Character? @relation(fields: [character_id], references: [id], onDelete: Cascade)
   character_id String?
 
   @@map("experiences")

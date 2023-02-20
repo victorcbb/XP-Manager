@@ -10,8 +10,9 @@ import { SelectTemplateExperience } from '../../../component/SelectTemplateExper
 import { useCharacters } from '../../../context/CharacterContext'
 import { prisma } from '../../../lib/prisma'
 import { EditDescription } from '../components/EditDescription'
-import { CharactersList, Container, Content } from './styles'
+import { CharactersList, Container, Content, Divisor } from './styles'
 import { ButtonLink } from '../../../component/ButtonLink'
+import { ExcludCampaign } from './component/ExcludCampaign'
 
 interface CampaignProps {
   campaign: {
@@ -37,6 +38,10 @@ export default function Campaign({
     (experienceTemplate) => experienceTemplate.campaignId === campaign.id,
   )[0]?.template
 
+  async function handleDeleteCampaign() {
+    console.log(campaign.id)
+  }
+
   useEffect(() => {
     fetchCharacters(campaign.id)
   }, [campaign.id])
@@ -47,12 +52,15 @@ export default function Campaign({
       <Content>
         <div>
           <BackLink />
+        </div>
+        <div>
+          <h1>{campaign.name}</h1>
+
           <EditDescription
             description={campaign.description}
             campaignId={campaign.id}
           />
         </div>
-        <h1>{campaign.name}</h1>
         <p>{campaign.description}</p>
         <h2>Progressão dos personagens</h2>
         <SelectTemplateExperience
@@ -78,6 +86,8 @@ export default function Campaign({
             ))}
         </CharactersList>
         <AddCharacter campaignId={campaign.id} />
+        <Divisor />
+        <ExcludCampaign onClick={handleDeleteCampaign} />
       </Content>
     </Container>
   )

@@ -18,10 +18,10 @@ export const Content = styled.main`
     display: flex;
     align-items: center;
     justify-content: space-between;
-  }
 
-  h1 {
-    margin-top: 1rem;
+    &:nth-child(2) {
+      margin-top: 1rem;
+    }
   }
 
   > p {
@@ -43,4 +43,10 @@ export const Character = styled.form`
     align-items: center;
     gap: 0.5rem;
   }
+`
+
+export const Divisor = styled.div`
+  width: 100%;
+  height: 1px;
+  background: ${({ theme }) => theme['gray-300']};
 `
