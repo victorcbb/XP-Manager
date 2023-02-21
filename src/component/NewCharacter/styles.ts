@@ -61,10 +61,30 @@ export const Container = styled.div<IProps>`
       isNew ? theme['blue-600'] : theme['red-600']};
 
     cursor: pointer;
+    transition: 0.2s all;
 
     svg {
       width: 1.375rem;
       height: 1.375rem;
+    }
+
+    &:hover:not(:disabled) {
+      filter: brightness(0.9);
+    }
+
+    &:disabled {
+      filter: grayscale(0.9);
+      cursor: not-allowed;
+    }
+  }
+
+  @media (min-width: 1200px) {
+    & + & {
+      margin-top: 0;
+    }
+
+    button {
+      width: 4.5rem;
     }
   }
 `

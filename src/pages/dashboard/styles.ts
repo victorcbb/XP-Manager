@@ -34,9 +34,6 @@ export const Content = styled.main`
     align-items: center;
     justify-content: space-between;
     margin-bottom: 1rem;
-
-    h1 {
-    }
   }
 
   @media (min-width: 1200px) {

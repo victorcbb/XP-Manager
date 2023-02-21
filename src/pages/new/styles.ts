@@ -5,7 +5,7 @@ export const Container = styled.div`
 `
 
 export const Content = styled.form`
-  width: min(75rem, 90%);
+  width: min(65rem, 90%);
   max-height: calc(100vh - 7.5rem);
   overflow-y: auto;
 
@@ -21,6 +21,18 @@ export const Content = styled.form`
     display: flex;
     align-items: center;
     justify-content: flex-end;
+  }
+
+  @media (min-width: 1200px) {
+    max-height: calc(100vh - 5.5rem - 6.75rem);
+    h1 {
+      font-size: 2.25rem;
+      margin-bottom: 1rem;
+    }
+
+    > h3 {
+      margin: 1.25rem 0 0.75rem;
+    }
   }
 `
 
@@ -46,6 +58,12 @@ export const TextArea = styled.label`
     border: 1px solid ${({ theme }) => theme['blue-600']};
     border-radius: 4px;
   }
+
+  @media (min-width: 1200px) {
+    textarea {
+      padding: 0.375rem 0.5rem;
+    }
+  }
 `
 
 export const Characters = styled.div`
@@ -54,7 +72,7 @@ export const Characters = styled.div`
   max-height: 32vh;
 
   overflow-y: auto;
-  /* overflow-y: overlay; */
+  overflow-y: overlay;
 
   &::-webkit-scrollbar {
     width: 0.6rem;
@@ -65,5 +83,14 @@ export const Characters = styled.div`
     background-clip: padding-box;
     background-color: ${({ theme }) => theme['blue-300']};
     border-radius: 8px;
+  }
+
+  @media (min-width: 1200px) {
+    max-height: 30vh;
+
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5em;
   }
 `
