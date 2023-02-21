@@ -26,8 +26,8 @@ export function Header() {
             <Image
               src={session?.data?.user.avatar_url!}
               alt={`Foto do perfil de ${session?.data?.user.name}`}
-              width={52}
-              height={52}
+              width={window.innerWidth >= 1200 ? 60 : 52}
+              height={window.innerWidth >= 1200 ? 60 : 52}
               quality={100}
             />
           </UserHeaderButton>

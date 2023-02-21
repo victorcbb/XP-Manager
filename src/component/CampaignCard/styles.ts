@@ -30,11 +30,25 @@ export const Container = styled(Link)`
   > span {
     color: ${({ theme }) => theme['gray-800']};
   }
+
+  @media (min-width: 1200px) {
+    height: 12.5rem;
+    padding: 1.25rem 1rem;
+
+    h2 {
+      font-size: 1.5rem;
+    }
+
+    p {
+      height: 3.5rem;
+      font-size: 1rem;
+    }
+  }
 `
 
 export const Characters = styled.div`
-  margin-top: 0.25rem;
   width: 100%;
+  margin-top: 0.25rem;
 
   white-space: nowrap;
 

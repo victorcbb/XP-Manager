@@ -5,11 +5,11 @@ export const Container = styled.div`
 `
 
 export const Content = styled.main`
-  width: min(75rem, 90%);
+  width: min(65rem, 90%);
   max-height: calc(100vh - 4.5rem - 3rem);
 
   margin: 2rem auto 0;
-  padding: 1rem 1rem 1rem;
+  padding: 1rem;
 
   background: ${({ theme }) => theme['gray-100']};
   border-radius: 8px;
@@ -38,6 +38,21 @@ export const Content = styled.main`
     h1 {
     }
   }
+
+  @media (min-width: 1200px) {
+    margin-top: 3.25rem;
+    padding: 1.25rem 1.75rem;
+
+    max-height: calc(100vh - 5.5rem - 6.75rem);
+
+    > div {
+      margin-bottom: 1.25rem;
+
+      h1 {
+        font-size: 2.25rem;
+      }
+    }
+  }
 `
 
 export const CampaignList = styled.section`
@@ -48,4 +63,9 @@ export const CampaignList = styled.section`
   gap: 1em;
 
   margin-top: 1.5rem;
+
+  @media (min-width: 1200px) {
+    gap: 1.25rem;
+    margin-top: 1.75rem;
+  }
 `
