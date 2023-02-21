@@ -59,6 +59,12 @@ export const Content = styled(AlertDialog.Content)`
 
     height: 2.5rem;
   }
+
+  @media (min-width: 1200px) {
+    div {
+      justify-content: end;
+    }
+  }
 `
 
 export const Title = styled(AlertDialog.Title)`

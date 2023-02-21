@@ -4,12 +4,19 @@ import { useSession } from 'next-auth/react'
 
 import { Container, ContentHeader, UserInfos } from './styles'
 import { UserHeaderButton } from '../UserHeaderButton'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 export function Header() {
   const [open, setOpen] = useState(false)
+  const [windowWidth, setWindowWidth] = useState(0)
 
   const session = useSession()
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setWindowWidth(window.innerWidth)
+    }
+  }, [])
   return (
     <Container>
       <ContentHeader>
@@ -26,8 +33,8 @@ export function Header() {
             <Image
               src={session?.data?.user.avatar_url!}
               alt={`Foto do perfil de ${session?.data?.user.name}`}
-              width={window.innerWidth >= 1200 ? 60 : 52}
-              height={window.innerWidth >= 1200 ? 60 : 52}
+              width={windowWidth >= 1200 ? 60 : 52}
+              height={windowWidth >= 1200 ? 60 : 52}
               quality={100}
             />
           </UserHeaderButton>

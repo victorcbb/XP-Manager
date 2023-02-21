@@ -26,8 +26,19 @@ export const Trigger = styled(Dialog.Trigger)`
 
   transition: 0.2s all;
 
-  &:hover {
+  &:hover:not(:disabled) {
     filter: brightness(0.8);
+  }
+
+  &:disabled {
+    filter: grayscale(0.5);
+    cursor: not-allowed;
+  }
+
+  @media (min-width: 1200px) {
+    margin-top: 2rem;
+    height: 2.625rem;
+    font-size: 1.25rem;
   }
 `
 

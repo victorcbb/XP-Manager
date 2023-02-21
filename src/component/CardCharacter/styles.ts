@@ -6,7 +6,6 @@ export const Container = styled.div`
   position: relative;
 
   padding: 1.5rem 0.5rem;
-  /* margin-top: 1.5rem; */
 
   & + & {
     border-top: 1px solid ${({ theme }) => theme['orange-200']};
@@ -23,7 +22,7 @@ export const Container = styled.div`
     gap: 0.5rem;
 
     button {
-      height: 1.75rem;
+      height: 100%;
 
       display: flex;
       align-items: center;
@@ -43,6 +42,19 @@ export const Container = styled.div`
         filter: grayscale(0.5);
         cursor: not-allowed;
       }
+    }
+  }
+
+  @media (min-width: 1200px) {
+    padding: 1.5rem 1.75rem;
+    margin-top: 1.5rem;
+
+    & + & {
+      border-top: none;
+    }
+
+    &:nth-child(even) {
+      border-left: 1px solid ${({ theme }) => theme['orange-200']};
     }
   }
 `
@@ -84,6 +96,12 @@ export const InfosCharacter = styled.div`
       border: 1px solid ${({ theme }) => theme['orange-900']};
       border-radius: 4px;
       background: ${({ theme }) => theme['gray-100']};
+    }
+  }
+
+  @media (min-width: 1200px) {
+    > h3 {
+      font-size: 1.25rem;
     }
   }
 `
