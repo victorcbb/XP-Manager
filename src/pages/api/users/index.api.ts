@@ -1,7 +1,14 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { setCookie } from 'nookies'
+import { z } from 'zod'
 
 import { prisma } from '../../../lib/prisma'
+
+const userQuerySchema = z.object({
+  name: z.string(),
+  email: z.string().email(),
+  avatarUrl: z.string().url(),
+})
 
 export default async function handler(
   req: NextApiRequest,
@@ -11,7 +18,7 @@ export default async function handler(
     return res.status(405).end()
   }
 
-  const { name, email, avatarUrl } = req.body
+  const { name, email, avatarUrl } = userQuerySchema.parse(req.body)
 
   const userExists = await prisma.user.findUnique({
     where: {

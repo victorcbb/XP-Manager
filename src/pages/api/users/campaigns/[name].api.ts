@@ -28,6 +28,14 @@ export default async function handle(
 
   const { name } = campaignQuerySchema.parse(req.query)
 
+  const namePattern = /^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ0-9\s]+$/
+
+  if (!name.match(namePattern)) {
+    return res.status(400).json({
+      error: 'Caracteres inválidos.',
+    })
+  }
+
   const result = await prisma.campaign.findMany({
     orderBy: {
       created_at: 'desc',

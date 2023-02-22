@@ -28,6 +28,10 @@ export default async function handle(
 
   const { experienceId } = deleteExperienceQuerySchema.parse(req.query)
 
+  if (isNaN(Number(experienceId))) {
+    return res.status(400).json({ err: 'Deveria ser apenas números.' })
+  }
+
   const experience = await prisma.experience.findUnique({
     where: {
       id: Number(experienceId),

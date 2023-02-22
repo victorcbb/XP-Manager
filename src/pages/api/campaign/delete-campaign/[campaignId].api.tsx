@@ -5,7 +5,7 @@ import { prisma } from '../../../../lib/prisma'
 import { buildNextAuthOptions } from '../../auth/[...nextauth].api'
 
 const deleteCampaignQuerySchema = z.object({
-  campaignId: z.string(),
+  campaignId: z.string().uuid(),
 })
 
 export default async function handle(

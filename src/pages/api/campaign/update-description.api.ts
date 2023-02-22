@@ -5,7 +5,7 @@ import { prisma } from '../../../lib/prisma'
 import { buildNextAuthOptions } from '../auth/[...nextauth].api'
 
 const updateCampaignDescriptionBodySchema = z.object({
-  campaignId: z.string(),
+  campaignId: z.string().uuid(),
   newDescription: z.string(),
 })
 
@@ -29,6 +29,15 @@ export default async function handle(
 
   const { campaignId, newDescription } =
     updateCampaignDescriptionBodySchema.parse(req.body)
+
+  const descriptionPattern =
+    /^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ0-9\s.,:!?]+$/
+
+  if (!newDescription.match(descriptionPattern)) {
+    return res
+      .status(400)
+      .json({ error: 'Não utilize caracteres especiais na descrição' })
+  }
 
   const updatedCampaignDescription = await prisma.campaign.update({
     where: {

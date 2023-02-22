@@ -5,7 +5,7 @@ import { prisma } from '../../../lib/prisma'
 import { buildNextAuthOptions } from '../auth/[...nextauth].api'
 
 const addExperienceBodySchema = z.object({
-  characterId: z.string(),
+  characterId: z.string().uuid(),
   experience: z.number(),
 })
 
@@ -28,6 +28,10 @@ export default async function handle(
   }
 
   const { characterId, experience } = addExperienceBodySchema.parse(req.body)
+
+  if (isNaN(experience)) {
+    return res.status(400).json({ err: 'Deveria ser apenas números.' })
+  }
 
   await prisma.experience.create({
     data: {

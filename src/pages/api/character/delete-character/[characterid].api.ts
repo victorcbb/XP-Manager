@@ -5,7 +5,7 @@ import { prisma } from '../../../../lib/prisma'
 import { buildNextAuthOptions } from '../../auth/[...nextauth].api'
 
 const deleteCharacterQuerySchema = z.object({
-  characterid: z.string(),
+  characterid: z.string().uuid(),
 })
 
 export default async function handle(

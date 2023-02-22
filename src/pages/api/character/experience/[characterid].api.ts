@@ -5,7 +5,7 @@ import { prisma } from '../../../../lib/prisma'
 import { buildNextAuthOptions } from '../../auth/[...nextauth].api'
 
 const characterExperienceQuerySchema = z.object({
-  characterid: z.string(),
+  characterid: z.string().uuid(),
 })
 
 export default async function handle(

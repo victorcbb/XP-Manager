@@ -36,6 +36,39 @@ export default async function handle(
   const { campaignName, characters, description } =
     createCampaignBodySchema.parse(req.body)
 
+  const campaignNamePattern = /^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ0-9\s]+$/
+  const charactersPattern = /^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ0-9\s]+$/
+  const descriptionPattern =
+    /^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ0-9\s.,:!?]+$/
+
+  if (!campaignName.match(campaignNamePattern)) {
+    return res
+      .status(400)
+      .json({ error: 'Não utilize caracteres especiais no nome da campanha.' })
+  }
+
+  if (!characters.map((character) => character.name.match(charactersPattern))) {
+    return res.status(400).json({
+      error: 'Não utilize caracteres especiais no nome do personagem.',
+    })
+  }
+
+  if (
+    !characters.map((character) =>
+      character.playerName.match(charactersPattern),
+    )
+  ) {
+    return res.status(400).json({
+      error: 'Não utilize caracteres especiais no nome do jogador.',
+    })
+  }
+
+  if (!description.match(descriptionPattern)) {
+    return res
+      .status(400)
+      .json({ error: 'Não utilize caracteres especiais na descrição' })
+  }
+
   await prisma.campaign.create({
     data: {
       name: campaignName,
