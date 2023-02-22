@@ -4,14 +4,20 @@ export const Contaienr = styled.div`
   width: 100%;
 
   > div {
-    width: min(75rem, 95%);
+    width: min(65rem, 95%);
     margin: 1.25rem auto 0;
+  }
+
+  @media (min-width: 1200px) {
+    > div {
+      margin-top: 1.75rem;
+    }
   }
 `
 
 export const Content = styled.main`
   grid-area: main;
-  width: min(75rem, 95%);
+  width: min(65rem, 95%);
   height: fit-content;
   margin: 2rem auto 0;
   overflow-x: auto;
@@ -89,6 +95,43 @@ export const TableWrapper = styled.div`
 
           &:last-child {
             text-align: center;
+          }
+        }
+      }
+    }
+  }
+
+  @media (min-width: 1200px) {
+    width: 100%;
+    max-width: 65rem;
+    margin-top: 2rem;
+
+    table {
+      width: 100%;
+
+      thead {
+        tr {
+          th {
+            &:last-child {
+              text-align: center;
+            }
+          }
+        }
+      }
+
+      tbody {
+        tr {
+          td {
+            &:first-child {
+              width: 25%;
+            }
+            &:nth-child(2),
+            &:nth-child(3) {
+              width: 25%;
+            }
+            &:last-child {
+              width: 25%;
+            }
           }
         }
       }
