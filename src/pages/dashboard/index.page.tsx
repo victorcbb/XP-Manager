@@ -4,6 +4,8 @@ import { ChangeEvent, useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { GetServerSideProps } from 'next'
 import { getServerSession } from 'next-auth/next'
+import { BsPlusCircle } from 'react-icons/bs'
+import { useQuery } from '@tanstack/react-query'
 
 import { api } from '../../lib/axios'
 import { buildNextAuthOptions } from '../api/auth/[...nextauth].api'
@@ -12,7 +14,6 @@ import { CampaignList, Container, Content } from './styles'
 import { Input } from '../../component/Input'
 import { CampaignCard } from '../../component/CampaignCard'
 import { ButtonLink } from '../../component/ButtonLink'
-import { BsPlusCircle } from 'react-icons/bs'
 
 interface Character {
   id: string
@@ -27,7 +28,6 @@ interface Campaigns {
 }
 
 export default function Dashboard() {
-  const [campaigns, setCampaigns] = useState<Campaigns[]>([])
   const [search, setSearch] = useState('')
   const session = useSession()
 
@@ -53,8 +53,9 @@ export default function Dashboard() {
     session?.data?.user?.avatar_url,
   ])
 
-  useEffect(() => {
-    async function fetchCampaign() {
+  const { data: campaigns } = useQuery<Campaigns[]>(
+    ['campaigns', search],
+    async () => {
       if (
         /^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ0-9\s]+$/.test(search) ===
           false &&
@@ -67,11 +68,9 @@ export default function Dashboard() {
 
       const response = await api.get(`/users/campaigns/${search}`)
 
-      setCampaigns(response.data)
-    }
-
-    fetchCampaign()
-  }, [search])
+      return response.data
+    },
+  )
 
   return (
     <Container>
