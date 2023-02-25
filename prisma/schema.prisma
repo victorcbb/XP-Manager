@@ -3,8 +3,9 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
-  url      = env("DATABASE_URL")
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
 }
 
 model Account {
@@ -24,6 +25,7 @@ model Account {
   user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
   @@unique([provider, provider_account_id])
+  @@index([user_id])
   @@map("accounts")
 }
 
@@ -34,6 +36,7 @@ model Session {
   expires       DateTime
   user          User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
+  @@index([user_id])
   @@map("sessions")
 }
 
@@ -61,6 +64,7 @@ model Campaign {
   characters Character[]
   User       User?       @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
+  @@index([user_id])
   @@map("campaigns")
 }
 
@@ -75,6 +79,7 @@ model Character {
   experiences Experience[]
   Campaign    Campaign?    @relation(fields: [campaign_id], references: [id], onDelete: Cascade)
 
+  @@index([campaign_id])
   @@map("characters")
 }
 
@@ -85,5 +90,6 @@ model Experience {
   Character    Character? @relation(fields: [character_id], references: [id], onDelete: Cascade)
   character_id String?
 
+  @@index([character_id])
   @@map("experiences")
 }
