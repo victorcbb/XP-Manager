@@ -22,6 +22,10 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    color: ${({ theme }) => theme['gray-800']};
     font-family: 'Poppins', sans-serif;
     font-size: 1rem;
     font-weight: 500;    
@@ -30,4 +34,10 @@ export const GlobalStyle = createGlobalStyle`
   a {
     text-decoration: none;
   }
+
+  input[type=text], input[type=button] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
 `
