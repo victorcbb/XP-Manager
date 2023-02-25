@@ -45,7 +45,6 @@ export default async function handle(
         {
           name: {
             contains: name,
-            mode: 'insensitive',
           },
         },
         {
