@@ -31,7 +31,7 @@ export default async function handle(
     updateCampaignDescriptionBodySchema.parse(req.body)
 
   const descriptionPattern =
-    /^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ0-9\s.,:!?]+$/
+    /^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ0-9\s.,:!?()/]+$/
 
   if (!newDescription.match(descriptionPattern)) {
     return res

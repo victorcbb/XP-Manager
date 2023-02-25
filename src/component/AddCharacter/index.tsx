@@ -83,6 +83,7 @@ export function AddCharacter({ campaignId }: AddCharacterProps) {
               type="text"
               label="Nome"
               value={name}
+              maxLength={50}
               onChange={(e: ChangeEvent<HTMLInputElement>) =>
                 setName(e.target.value)
               }
@@ -92,6 +93,7 @@ export function AddCharacter({ campaignId }: AddCharacterProps) {
               type="text"
               label="Jogador"
               value={playerName}
+              maxLength={50}
               onChange={(e: ChangeEvent<HTMLInputElement>) =>
                 setPlayerName(e.target.value)
               }

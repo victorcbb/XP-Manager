@@ -4,6 +4,7 @@ import { ThemeProvider } from 'styled-components'
 import { SessionProvider } from 'next-auth/react'
 import 'react-toastify/dist/ReactToastify.css'
 import { QueryClientProvider } from '@tanstack/react-query'
+import { DefaultSeo } from 'next-seo'
 
 import { GlobalStyle } from '../styles/global'
 import { defaultTheme } from '../styles/theme'
@@ -32,6 +33,14 @@ export default function App({
         <GlobalStyle />
         <QueryClientProvider client={queryClient}>
           <CharacterProvider>
+            <DefaultSeo
+              openGraph={{
+                type: 'website',
+                locale: 'pt_BR',
+                url: 'https://www.xpmanager.com/',
+                siteName: 'XP.Manager',
+              }}
+            />
             <Component {...pageProps} />
           </CharacterProvider>
         </QueryClientProvider>

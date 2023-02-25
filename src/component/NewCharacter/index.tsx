@@ -29,22 +29,24 @@ export function NewCharacter({
           Nome:
           <input
             type="text"
-            placeholder="Haspen, O Cintilante"
+            placeholder="Nome do personagem"
             value={name}
             readOnly={!isNew}
             onChange={onChangeName}
             {...rest}
+            // maxLength={50}
           />
         </label>
         <label>
           Jogador:
           <input
             type="text"
-            placeholder="Elton Kesse"
+            placeholder="Nome do jogador"
             value={playerName}
             readOnly={!isNew}
             onChange={onChangePlayerName}
             {...rest}
+            // maxLength={50}
           />
         </label>
       </div>

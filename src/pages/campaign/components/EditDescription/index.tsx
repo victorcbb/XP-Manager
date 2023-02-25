@@ -1,4 +1,5 @@
 import { AxiosError } from 'axios'
+import { useRouter } from 'next/router'
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { BsPenFill } from 'react-icons/bs'
 import { IoMdClose } from 'react-icons/io'
@@ -19,6 +20,8 @@ export function EditDescription({
   const [newDescription, setNewDescription] = useState(description)
   const [open, setOpen] = useState(false)
 
+  const router = useRouter()
+
   async function handleSubmitNewDescription(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
 
@@ -28,7 +31,7 @@ export function EditDescription({
     }
 
     if (
-      /^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ0-9\s.,:!?]+$/.test(
+      /^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ0-9\s.,:!?()/]+$/.test(
         newDescription,
       ) === false
     ) {
@@ -44,6 +47,7 @@ export function EditDescription({
       })
 
       toast.success('Descrição atualizada com sucesso!')
+      router.reload()
     } catch (err) {
       if (err instanceof AxiosError && err.response?.data?.message) {
         return toast.error(err.response.data.message)

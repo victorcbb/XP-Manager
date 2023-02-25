@@ -1,11 +1,12 @@
+import { useQuery } from '@tanstack/react-query'
 import { AxiosError } from 'axios'
-import { useSession } from 'next-auth/react'
 import { ChangeEvent, useEffect, useState } from 'react'
+import { BsPlusCircle } from 'react-icons/bs'
 import { toast } from 'react-toastify'
 import { GetServerSideProps } from 'next'
+import { useSession } from 'next-auth/react'
 import { getServerSession } from 'next-auth/next'
-import { BsPlusCircle } from 'react-icons/bs'
-import { useQuery } from '@tanstack/react-query'
+import { NextSeo } from 'next-seo'
 
 import { api } from '../../lib/axios'
 import { buildNextAuthOptions } from '../api/auth/[...nextauth].api'
@@ -73,28 +74,35 @@ export default function Dashboard() {
   )
 
   return (
-    <Container>
-      <Header />
-      <Content>
-        <div>
-          <h1>Campanhas</h1>
-          <ButtonLink title="Nova" path="/new" icon={<BsPlusCircle />} />
-        </div>
-        <Input
-          placeholder="Pesquise o nome da campanha"
-          type="text"
-          onChange={(e: ChangeEvent<HTMLInputElement>) =>
-            setSearch(e.target.value)
-          }
-        />
-        <CampaignList>
-          {campaigns &&
-            campaigns.map((campaign) => (
-              <CampaignCard key={campaign.id} data={campaign} />
-            ))}
-        </CampaignList>
-      </Content>
-    </Container>
+    <>
+      <NextSeo
+        title="Dashboard | XP.Manager"
+        description="Crie ou genrencie uma campanha."
+        noindex
+      />
+      <Container>
+        <Header />
+        <Content>
+          <div>
+            <h1>Campanhas</h1>
+            <ButtonLink title="Nova" path="/new" icon={<BsPlusCircle />} />
+          </div>
+          <Input
+            placeholder="Pesquise o nome da campanha"
+            type="text"
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setSearch(e.target.value)
+            }
+          />
+          <CampaignList>
+            {campaigns &&
+              campaigns.map((campaign) => (
+                <CampaignCard key={campaign.id} data={campaign} />
+              ))}
+          </CampaignList>
+        </Content>
+      </Container>
+    </>
   )
 }
 

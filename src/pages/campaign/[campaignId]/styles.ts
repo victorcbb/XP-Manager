@@ -50,6 +50,10 @@ export const Content = styled.main`
     h2 {
       font-size: 1.75rem;
     }
+
+    > div {
+      padding-inline: 0.5rem;
+    }
   }
 `
 

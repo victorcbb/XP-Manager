@@ -1,7 +1,9 @@
+import { AxiosError } from 'axios'
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { BsPlusCircle } from 'react-icons/bs'
 import { toast } from 'react-toastify'
 import { useRouter } from 'next/router'
+import { NextSeo } from 'next-seo'
 
 import { BackLink } from '../../component/BackLink'
 import { Button } from '../../component/Button'
@@ -47,13 +49,44 @@ export default function New() {
     }
 
     if (
-      /^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ0-9\s.,:!?]+$/.test(
+      /^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ0-9\s.,:!?()/]+$/.test(
         description,
       ) === false
     ) {
       return toast.info(
         'O campo da descrição deve ter apenas letras, números, acentos e pontuações',
       )
+    }
+
+    if (newCharacterName || newPlayerName) {
+      return toast.warning(
+        `Existe informações de um personagem para adicionar.`,
+      )
+    }
+
+    try {
+      setIsLoading(true)
+
+      await api.post('/campaign/new-campaign', {
+        campaignName,
+        description,
+        characters,
+      })
+
+      toast.success('Campanha criada com sucesso!')
+      await router.push('/dashboard')
+    } catch (error) {
+      if (error instanceof AxiosError && error.response?.data?.message) {
+        return toast.error(error.response.data.message)
+      }
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  function handleAddCharacter() {
+    if (newCharacterName.length === 0 || newPlayerName.length === 0) {
+      return toast.warning(`Preencha todos os campos`)
     }
 
     if (
@@ -77,39 +110,6 @@ export default function New() {
       )
     }
 
-    if (newCharacterName || newPlayerName) {
-      return toast.warning(
-        `Existe informações de um personagem para adicionar.`,
-      )
-    }
-
-    try {
-      setIsLoading(true)
-
-      await api.post('/campaign/new-campaign', {
-        campaignName,
-        description,
-        characters,
-      })
-
-      toast.success('Campanha criada com sucesso!')
-      await router.push('/dashboard')
-    } catch (err: any) {
-      if (err.response) {
-        toast.error(err.response.data.message)
-      } else {
-        toast.error('Falha ao criar a campanha.')
-      }
-    } finally {
-      setIsLoading(false)
-    }
-  }
-
-  function handleAddCharacter() {
-    if (newCharacterName.length === 0 || newPlayerName.length === 0) {
-      return toast.warning(`Preencha todos os campos`)
-    }
-
     setCharacters((prevState) => [
       ...prevState,
       {
@@ -129,64 +129,71 @@ export default function New() {
   }
 
   return (
-    <Container>
-      <Header />
-      <Content onSubmit={handleSubmit}>
-        <BackLink />
-        <h1>Nova Campanha</h1>
-        <Input
-          type="text"
-          placeholder="O orc e a torta"
-          label="Nome"
-          onChange={(e: ChangeEvent<HTMLInputElement>) =>
-            setCampaignName(e.target.value)
-          }
-        />
-        <TextArea>
-          Descrição
-          <textarea
-            cols={30}
-            rows={10}
-            placeholder="Faça uma breve descrição da sua campanha."
-            onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
-              setDescription(e.target.value)
+    <>
+      <NextSeo
+        title="Nova Campanha | XP.Manager"
+        description="Crie um nome, faça uma breve descrição e adicione os personagens dos jogadores."
+        noindex
+      />
+      <Container>
+        <Header />
+        <Content onSubmit={handleSubmit}>
+          <BackLink />
+          <h1>Nova Campanha</h1>
+          <Input
+            type="text"
+            placeholder="O orc e a torta"
+            label="Nome"
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setCampaignName(e.target.value)
             }
           />
-        </TextArea>
-        <h3>Personagens:</h3>
-        <Characters>
-          {characters &&
-            characters.map((character, index) => (
-              <NewCharacter
-                key={index}
-                name={character.name}
-                playerName={character.playerName}
-                onClick={() => handleRemoveCharacter(character.name)}
-                isNew={false}
-              />
-            ))}
-          <NewCharacter
-            name={newCharacterName}
-            onChangeName={(e: ChangeEvent<HTMLInputElement>) =>
-              setNewCharacterName(e.target.value)
-            }
-            playerName={newPlayerName}
-            onChangePlayerName={(e: ChangeEvent<HTMLInputElement>) =>
-              setNewPlayerName(e.target.value)
-            }
-            isNew
-            onClick={handleAddCharacter}
-          />
-        </Characters>
-        <div>
-          <Button
-            title="Criar"
-            type="submit"
-            isLoading={isLoading}
-            icon={<BsPlusCircle />}
-          />
-        </div>
-      </Content>
-    </Container>
+          <TextArea>
+            Descrição
+            <textarea
+              cols={30}
+              rows={10}
+              placeholder="Faça uma breve descrição da sua campanha."
+              onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
+                setDescription(e.target.value)
+              }
+            />
+          </TextArea>
+          <h3>Personagens:</h3>
+          <Characters>
+            {characters &&
+              characters.map((character, index) => (
+                <NewCharacter
+                  key={index}
+                  name={character.name}
+                  playerName={character.playerName}
+                  onClick={() => handleRemoveCharacter(character.name)}
+                  isNew={false}
+                />
+              ))}
+            <NewCharacter
+              name={newCharacterName}
+              onChangeName={(e: ChangeEvent<HTMLInputElement>) =>
+                setNewCharacterName(e.target.value)
+              }
+              playerName={newPlayerName}
+              onChangePlayerName={(e: ChangeEvent<HTMLInputElement>) =>
+                setNewPlayerName(e.target.value)
+              }
+              isNew
+              onClick={handleAddCharacter}
+            />
+          </Characters>
+          <div>
+            <Button
+              title="Criar"
+              type="submit"
+              isLoading={isLoading}
+              icon={<BsPlusCircle />}
+            />
+          </div>
+        </Content>
+      </Container>
+    </>
   )
 }

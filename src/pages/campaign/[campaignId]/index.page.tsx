@@ -1,7 +1,9 @@
+import { AxiosError } from 'axios'
 import { GetServerSideProps } from 'next'
 import { useEffect } from 'react'
 import { parseCookies } from 'nookies'
 import { useRouter } from 'next/router'
+import { NextSeo } from 'next-seo'
 
 import { AddCharacter } from '../../../component/AddCharacter'
 import { BackLink } from '../../../component/BackLink'
@@ -16,7 +18,6 @@ import { ButtonLink } from '../../../component/ButtonLink'
 import { ExcludCampaign } from './component/ExcludCampaign'
 import { api } from '../../../lib/axios'
 import { toast } from 'react-toastify'
-import { AxiosError } from 'axios'
 
 interface CampaignProps {
   campaign: {
@@ -63,49 +64,56 @@ export default function Campaign({
   }, [campaign.id])
 
   return (
-    <Container>
-      <Header />
-      <Content>
-        <div>
-          <BackLink />
-        </div>
-        <div>
-          <h1>{campaign.name}</h1>
+    <>
+      <NextSeo
+        title={`${campaign.name} | XP.Manager`}
+        description="Crie ou genrencie uma campanha."
+        noindex
+      />
+      <Container>
+        <Header />
+        <Content>
+          <div>
+            <BackLink />
+          </div>
+          <div>
+            <h1>{campaign.name}</h1>
 
-          <EditDescription
-            description={campaign.description}
+            <EditDescription
+              description={campaign.description}
+              campaignId={campaign.id}
+            />
+          </div>
+          <p>{campaign.description}</p>
+          <h2>Progressão dos personagens</h2>
+          <SelectTemplateExperience
             campaignId={campaign.id}
+            experienceTemplates={experienceTemplates}
           />
-        </div>
-        <p>{campaign.description}</p>
-        <h2>Progressão dos personagens</h2>
-        <SelectTemplateExperience
-          campaignId={campaign.id}
-          experienceTemplates={experienceTemplates}
-        />
-        <div>
-          <h2>Personagens</h2>
-          <ButtonLink
-            path={`/campaign/${campaign.id}/character-table`}
-            title="Tabela"
-          />
-        </div>
-        <CharactersList>
-          {characters &&
-            characters.map((character) => (
-              <CardCharacter
-                key={character.id}
-                character={character}
-                campaignId={campaign.id}
-                experienceTemplate={filteredExperienceTempate}
-              />
-            ))}
-        </CharactersList>
-        <AddCharacter campaignId={campaign.id} />
-        <Divisor />
-        <ExcludCampaign onClick={handleDeleteCampaign} />
-      </Content>
-    </Container>
+          <div>
+            <h2>Personagens</h2>
+            <ButtonLink
+              path={`/campaign/${campaign.id}/character-table`}
+              title="Tabela"
+            />
+          </div>
+          <CharactersList>
+            {characters &&
+              characters.map((character) => (
+                <CardCharacter
+                  key={character.id}
+                  character={character}
+                  campaignId={campaign.id}
+                  experienceTemplate={filteredExperienceTempate}
+                />
+              ))}
+          </CharactersList>
+          <AddCharacter campaignId={campaign.id} />
+          <Divisor />
+          <ExcludCampaign onClick={handleDeleteCampaign} />
+        </Content>
+      </Container>
+    </>
   )
 }
 

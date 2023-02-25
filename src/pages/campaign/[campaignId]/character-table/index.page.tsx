@@ -1,8 +1,10 @@
-import html2canvas from 'html2canvas'
 import downloadjs from 'downloadjs'
+import html2canvas from 'html2canvas'
 import { GetServerSideProps } from 'next'
-import { BsDownload } from 'react-icons/bs'
 import { parseCookies } from 'nookies'
+import { NextSeo } from 'next-seo'
+import { useEffect } from 'react'
+import { BsDownload } from 'react-icons/bs'
 
 import { BackLink } from '../../../../component/BackLink'
 import { Header } from '../../../../component/Header'
@@ -10,7 +12,6 @@ import { Contaienr, Content, TableWrapper } from './styles'
 import { Button } from '../../../../component/Button'
 import { prisma } from '../../../../lib/prisma'
 import { useCharacters } from '../../../../context/CharacterContext'
-import { useEffect } from 'react'
 import { levelCalculator } from '../../../../utils/level-calculator'
 
 interface CampaignProps {
@@ -50,71 +51,75 @@ export default function CharacterTable({
   }, [campaign.id])
 
   return (
-    <Contaienr>
-      <Header />
-      <Content>
-        <BackLink />
+    <>
+      <NextSeo title="Tabela de experiência | XP.Manager" noindex />
+      <Contaienr>
+        <Header />
+        <Content>
+          <BackLink />
 
-        <TableWrapper>
-          <table id="capture">
-            <thead>
-              <tr>
-                <th>Personagem</th>
-                <th>Ultimo XP</th>
-                <th>XP total</th>
-                <th>Nível</th>
-              </tr>
-            </thead>
-            <tbody>
-              {characters &&
-                characters.map((character) => (
-                  <tr key={character.id}>
-                    <td>
-                      <strong>{character.name}</strong>
-                      <span>{character.player_name}</span>
-                    </td>
-                    <td>
-                      {character.experiences
-                        .at(-1)
-                        ?.points.toLocaleString('pt-br') || '0'}
-                    </td>
-                    <td>
-                      {character.experiences
-                        .filter((experience) => experience.points)
-                        .reduce(
-                          (accumulator, currentValue) =>
-                            accumulator + currentValue.points,
-                          0,
-                        )
-                        .toLocaleString('pt-br')}
-                    </td>
-                    <td>
-                      {levelCalculator(
-                        character.experiences
+          <TableWrapper>
+            <table id="capture">
+              <thead>
+                <tr>
+                  <th>Personagem</th>
+                  <th>Ultimo XP</th>
+                  <th>XP total</th>
+                  <th>Nível</th>
+                </tr>
+              </thead>
+              <tbody>
+                {characters &&
+                  characters.map((character) => (
+                    <tr key={character.id}>
+                      <td>
+                        <strong>{character.name}</strong>
+                        <span>{character.player_name}</span>
+                      </td>
+                      <td>
+                        {character.experiences
+                          .at(-1)
+                          ?.points.toLocaleString('pt-br') || '0'}
+                      </td>
+                      <td>
+                        {character.experiences
                           .filter((experience) => experience.points)
                           .reduce(
                             (accumulator, currentValue) =>
                               accumulator + currentValue.points,
                             0,
-                          ),
-                        filteredExperienceTempate,
-                      )}
-                    </td>
-                  </tr>
-                ))}
-            </tbody>
-          </table>
-        </TableWrapper>
-      </Content>
-      <div>
-        <Button
-          onClick={DownloadScreenshot}
-          type="button"
-          title="Baixar tabela"
-          icon={<BsDownload />}
-        />
-      </div>
-    </Contaienr>
+                          )
+                          .toLocaleString('pt-br')}
+                      </td>
+                      <td>
+                        {levelCalculator(
+                          character.experiences
+                            .filter((experience) => experience.points)
+                            .reduce(
+                              (accumulator, currentValue) =>
+                                accumulator + currentValue.points,
+                              0,
+                            ),
+                          filteredExperienceTempate ||
+                            'Pathfinder-BloodBrothers-template',
+                        )}
+                      </td>
+                    </tr>
+                  ))}
+              </tbody>
+            </table>
+          </TableWrapper>
+        </Content>
+        <div>
+          <Button
+            onClick={DownloadScreenshot}
+            type="button"
+            title="Baixar tabela"
+            icon={<BsDownload />}
+          />
+        </div>
+      </Contaienr>
+    </>
   )
 }
 

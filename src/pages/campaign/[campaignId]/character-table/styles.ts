@@ -122,9 +122,6 @@ export const TableWrapper = styled.div`
       tbody {
         tr {
           td {
-            &:first-child {
-              width: 25%;
-            }
             &:nth-child(2),
             &:nth-child(3) {
               width: 25%;
