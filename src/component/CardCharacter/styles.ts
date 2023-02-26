@@ -22,7 +22,8 @@ export const Container = styled.div`
     gap: 0.5rem;
 
     button {
-      height: 100%;
+      -webkit-appearance: none;
+      height: 1.8125rem !important;
 
       display: flex;
       align-items: center;
@@ -49,12 +50,27 @@ export const Container = styled.div`
     padding: 1.5rem 1.75rem;
     margin-top: 1.5rem;
 
-    & + & {
-      border-top: none;
-    }
+    > form {
+      width: 21rem;
 
-    &:nth-child(even) {
-      border-left: 1px solid ${({ theme }) => theme['orange-200']};
+      margin-top: 1rem;
+
+      display: grid;
+      grid-template-columns: 8rem 1fr;
+      align-items: center;
+      gap: 0.5rem;
+
+      button {
+        height: 2.0625rem !important;
+      }
+
+      & + & {
+        border-top: none;
+      }
+
+      &:nth-child(even) {
+        border-left: 1px solid ${({ theme }) => theme['orange-200']};
+      }
     }
   }
 `

@@ -228,6 +228,7 @@ export function CardCharacter({
             setExperience(e.target.valueAsNumber)
           }
         />
+
         <button type="submit" disabled={isLoading}>
           <BsPlusCircle /> Adicionar XP
         </button>
