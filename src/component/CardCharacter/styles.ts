@@ -84,7 +84,7 @@ export const InfosCharacter = styled.div`
     margin: 0.5rem 0;
 
     > button {
-      height: 1.5rem;
+      height: 100%;
 
       display: flex;
       align-items: center;
