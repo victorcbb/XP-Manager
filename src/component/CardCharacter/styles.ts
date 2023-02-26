@@ -85,12 +85,7 @@ export const InfosCharacter = styled.div`
 
     > button {
       -webkit-appearance: none;
-      -moz-appearance: none;
-      -webkit-text-size-adjust: unset;
-      -webkit-box-sizing: border-box;
-      -moz-box-sizing: border-box;
-
-      height: 100%;
+      height: 100% !important;
 
       display: flex;
       align-items: center;
