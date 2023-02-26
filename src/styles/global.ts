@@ -21,6 +21,12 @@ export const GlobalStyle = createGlobalStyle`
     font-weight: 400;    
   }
 
+  form {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+
   button {
     -webkit-appearance: none;
     -moz-appearance: none;
