@@ -21,6 +21,7 @@ export const Container = styled.button`
 
   &:hover:not(:disabled) {
     filter: brightness(0.8);
+    cursor: pointer;
   }
 
   &:disabled {

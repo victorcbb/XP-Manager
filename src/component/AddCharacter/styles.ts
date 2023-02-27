@@ -93,6 +93,12 @@ export const Content = styled(Dialog.Content)`
       border-radius: 8px;
       padding: 0 0.5rem;
       font-weight: 500;
+      cursor: pointer;
+      transition: 0.2s all;
+
+      &:hover {
+        filter: brightness(0.85);
+      }
     }
   }
 `

@@ -81,6 +81,12 @@ export const Cancel = styled(AlertDialog.Cancel)`
     border: 1px solid ${({ theme }) => theme['gray-500']};
     border-radius: 8px;
     padding: 0 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s;
+
+    &:hover {
+      filter: brightness(0.8);
+    }
   }
 `
 
@@ -94,5 +100,11 @@ export const Action = styled(AlertDialog.Action)`
     border: none;
     border-radius: 8px;
     padding: 0 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s;
+
+    &:hover {
+      filter: brightness(0.8);
+    }
   }
 `

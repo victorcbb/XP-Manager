@@ -20,6 +20,7 @@ export const Container = styled(Link)`
   line-height: 1.6;
 
   transition: 0.2s all;
+  cursor: pointer;
 
   &:hover {
     filter: brightness(0.8);
