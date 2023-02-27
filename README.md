@@ -13,7 +13,6 @@ Caso tenha interesse, pode visualizar a aplicação rodando em: https://xpmanage
  - `React-icons`
  - `Radix-ui`
  - `React-toastify`
- - `React-hook-form`
  - `Zod`
  - `Nookies`
  - `Next-auth`
@@ -23,6 +22,7 @@ Caso tenha interesse, pode visualizar a aplicação rodando em: https://xpmanage
  - `Dayjs`
  - `Downloadjs`
  - `Html2canvas`
+ - `MySQL`
 
 ## Começando
 
