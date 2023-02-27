@@ -1,38 +1,150 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# XPMANAGER
 
-## Getting Started
+Essa aplicação web fullstack foi desenvolvida para que mestres de RPG de mesa, tanto do Pathfinder quanto D&D 5E, possam gerenciar de forma prática as experiências e níveis de cada personagem em suas campanhas narradas. É possivel também gerar uma tabela com nome dos personagens, sua experiência total, ultima experiência e nível, que pode ser baixada como imagem para que o mestre possa compartilhar em seus grupos.
 
-First, run the development server:
+Caso tenha interesse, pode visualizar a aplicação rodando em: https://xpmanager.vercel.app/
+
+## Stack Tecnológica:
+
+ - `Next`
+ - `Typescript`
+ - `Axios`
+ - `Styled-components`
+ - `React-icons`
+ - `Radix-ui`
+ - `React-toastify`
+ - `React-hook-form`
+ - `Zod`
+ - `Nookies`
+ - `Next-auth`
+ - `Next-seo`
+ - `googleapi`
+ - `Prisma`
+ - `Dayjs`
+ - `Downloadjs`
+ - `Html2canvas`
+
+## Começando
+
+Primeiro, baixe em um diretório ou clone esse repositório utilizando:
+
+```bash
+git clone git@github.com:victorcbb/XP-Manager.git
+```
+
+instale as dependências com:
+
+```bash
+npm i
+```
+
+### Instalando o Docker
+
+Agora será necessário instalar o Docker para que possa ser criado um banco de dados Mysql. As estratégias de instalação variam de acordo com o sistema operacional da sua maquina. Caso seja necessário, siga o passo a passo direto da documentação do Docker:
+
+- [Windows](https://docs.docker.com/desktop/install/windows-install/)
+- [MacOS](https://docs.docker.com/desktop/install/mac-install/)
+- [Linux](https://docs.docker.com/desktop/install/linux-install/#supported-platforms)
+
+Com o Docker instalado, vamos criar um container com o banco de dados Mysql através da CLI:
+
+ ```bash 
+docker run --name mysql -e MYSQL_ROOT_PASSWORD=docker -p 3306:3306 mysql:latest
+```
+
+Você pode utilizar a interface gráfica do Docker para iniciar e parar o container do banco de dados ou usar as respectivas CLI:
+
+ ```bash 
+docker start mysql
+```
+
+ ```bash 
+docker stop mysql
+```
+
+Com as mesmas credênciais utilizadas para criar o banco de dados no passo anterior, acesse o arquivo `.env.example` e modifique o `DATABASE_URL`. Aproveite para renomar o arquivo para `.env`.
+
+Para criar as tabelas no banco de dados use o comando:
+
+ ```bash 
+npx prisma migrate dev
+```
+
+Por fim, rode o servidor de desenvolvimento com:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Endpoints
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+### users
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+`POST`: 
+```bash 
+/users/
+```
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+`GET`: 
+```bash 
+/users/campaigns/:name
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### campaign
 
-## Learn More
+`POST`: 
+```bash 
+/campaign/new-campaign/
+```
 
-To learn more about Next.js, take a look at the following resources:
+`PUT`: 
+```bash 
+/campaign/update-description/
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+`DELETE`: 
+```bash 
+/campaign/delete-campaign/:campaignId
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+`PATCH`: 
+```bash 
+/ingredients/image/:id
+```
 
-## Deploy on Vercel
+### character
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+`POST`: 
+```bash 
+/character/new/
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+`GET`: 
+```bash 
+/character/find-characters/:campaignid
+```
+
+`GET`: 
+```bash 
+/character/experience/:characterid
+```
+
+`DELETE`: 
+```bash 
+/character/delete-character/:characterid
+```
+
+### experience
+
+`POST`: 
+```bash
+/experience
+```
+
+`DELETE`: 
+```bash 
+/experience/delete/:experienceId
+```
+
+
+
