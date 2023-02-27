@@ -51,7 +51,7 @@ export function AddCharacter({ campaignId }: AddCharacterProps) {
     }
 
     try {
-      await api.post('character/new', {
+      await api.post('/character/new', {
         campaignId,
         name,
         playerName,

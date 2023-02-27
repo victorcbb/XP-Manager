@@ -36,7 +36,7 @@ export function CharacterProvider({ children }: CharacterProviderProps) {
 
   async function fetchCharacters(campaignId: string) {
     try {
-      const result = await api.get(`character/find-characters/${campaignId}`)
+      const result = await api.get(`/character/find-characters/${campaignId}`)
 
       setCharacters(result.data)
     } catch (err) {

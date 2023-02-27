@@ -179,7 +179,7 @@ export function CardCharacter({
           speed={2}
           width="100%"
           height={200}
-          viewBox="0 0 400 160"
+          viewBox="0 0 366 160"
           backgroundColor="#c4c4c4"
           foregroundColor="#BEE3F8"
         >
