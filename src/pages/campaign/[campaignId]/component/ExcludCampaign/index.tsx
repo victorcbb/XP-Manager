@@ -13,9 +13,14 @@ import {
 
 interface ActionDialogProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   onClick: () => void
+  isLoading: boolean
 }
 
-export function ExcludCampaign({ onClick, ...rest }: ActionDialogProps) {
+export function ExcludCampaign({
+  onClick,
+  isLoading = false,
+  ...rest
+}: ActionDialogProps) {
   return (
     <Root>
       <Trigger asChild>
@@ -33,7 +38,7 @@ export function ExcludCampaign({ onClick, ...rest }: ActionDialogProps) {
             <Cancel>
               <button type="button">Cancelar</button>
             </Cancel>
-            <Action onClick={onClick} type="button">
+            <Action onClick={onClick} type="button" disabled={isLoading}>
               <button>Excluir campanha</button>
             </Action>
           </div>

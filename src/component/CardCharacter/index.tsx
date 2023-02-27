@@ -244,6 +244,7 @@ export function CardCharacter({
             description="Tem certeza que deseja excluir permanentemente esse personagem?"
             buttonConfirm="Deletar personagem"
             onClick={handleDeleteCharacter}
+            isLoading={isLoading}
           />
         }
         ItemExcludeExperience={
@@ -253,6 +254,7 @@ export function CardCharacter({
             description="Tem certeza que deseja excluir permanentemente a última pontuação de experiência adicionada?"
             buttonConfirm="Deletar experiência"
             onClick={handleDeleteLastExperience}
+            isLoading={isLoading}
           />
         }
       />

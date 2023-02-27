@@ -19,11 +19,13 @@ export function EditDescription({
 }: EditDescriptionProps) {
   const [newDescription, setNewDescription] = useState(description)
   const [open, setOpen] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
 
   const router = useRouter()
 
   async function handleSubmitNewDescription(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
+    setIsLoading(true)
 
     if (newDescription === description) {
       setOpen(false)
@@ -53,6 +55,8 @@ export function EditDescription({
         return toast.error(err.response.data.message)
       }
     } finally {
+      setIsLoading(false)
+
       setOpen(false)
     }
   }
@@ -75,7 +79,9 @@ export function EditDescription({
                 setNewDescription(e.target.value)
               }
             />
-            <button type="submit">Salvar</button>
+            <button type="submit" disabled={isLoading}>
+              Salvar
+            </button>
           </form>
           <Close>
             <IoMdClose />

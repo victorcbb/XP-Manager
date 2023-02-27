@@ -1,6 +1,6 @@
 import { AxiosError } from 'axios'
 import { GetServerSideProps } from 'next'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { parseCookies } from 'nookies'
 import { useRouter } from 'next/router'
 import { NextSeo } from 'next-seo'
@@ -38,6 +38,7 @@ export default function Campaign({
   experienceTemplates,
 }: CampaignProps) {
   const { fetchCharacters, characters } = useCharacters()
+  const [isLoading, setIsLoading] = useState(false)
 
   const router = useRouter()
 
@@ -47,6 +48,8 @@ export default function Campaign({
     )[0]?.template || 'Pathfinder-BloodBrothers-template'
 
   async function handleDeleteCampaign() {
+    setIsLoading(true)
+
     try {
       await api.delete(`/campaign/delete-campaign/${campaign.id}`)
 
@@ -56,6 +59,8 @@ export default function Campaign({
       if (err instanceof AxiosError && err.response?.data?.message) {
         return toast.error(err.response.data.message)
       }
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -110,7 +115,10 @@ export default function Campaign({
           </CharactersList>
           <AddCharacter campaignId={campaign.id} />
           <Divisor />
-          <ExcludCampaign onClick={handleDeleteCampaign} />
+          <ExcludCampaign
+            onClick={handleDeleteCampaign}
+            isLoading={isLoading}
+          />
         </Content>
       </Container>
     </>

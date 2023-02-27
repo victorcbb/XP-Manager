@@ -17,11 +17,13 @@ export function AddCharacter({ campaignId }: AddCharacterProps) {
   const [name, setName] = useState('')
   const [playerName, setPlayerName] = useState('')
   const [open, setOpen] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
 
   const { fetchCharacters } = useCharacters()
 
   async function handleAddNewCharacter(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
+    setIsLoading(true)
 
     if (
       /^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ0-9\s]+$/.test(name) === false
@@ -64,6 +66,7 @@ export function AddCharacter({ campaignId }: AddCharacterProps) {
         return toast.error(err.response.data.message)
       }
     } finally {
+      setIsLoading(false)
       setOpen(false)
     }
   }
@@ -98,7 +101,9 @@ export function AddCharacter({ campaignId }: AddCharacterProps) {
                 setPlayerName(e.target.value)
               }
             />
-            <button type="submit">Criar</button>
+            <button type="submit" disabled={isLoading}>
+              Criar
+            </button>
           </form>
           <Close>
             <IoMdClose />

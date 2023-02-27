@@ -17,6 +17,7 @@ interface ActionDialogProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   title: string
   description: string
   buttonConfirm: string
+  isLoading: boolean
 }
 
 export function AlertDialog({
@@ -25,6 +26,7 @@ export function AlertDialog({
   title,
   description,
   buttonConfirm,
+  isLoading = false,
   ...rest
 }: ActionDialogProps) {
   return (
@@ -41,7 +43,7 @@ export function AlertDialog({
             <Cancel>
               <button type="button">Cancelar</button>
             </Cancel>
-            <Action onClick={onClick} type="button">
+            <Action onClick={onClick} type="button" disabled={isLoading}>
               <button>{buttonConfirm}</button>
             </Action>
           </div>
