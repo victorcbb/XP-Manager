@@ -63,7 +63,7 @@ export default function CharacterTable({
               <thead>
                 <tr>
                   <th>Personagem</th>
-                  <th>Ultimo XP</th>
+                  <th>Último XP</th>
                   <th>XP total</th>
                   <th>Nível</th>
                 </tr>
