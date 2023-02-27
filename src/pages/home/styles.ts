@@ -26,7 +26,7 @@ export const Container = styled.main`
     background-position: 50% 0;
     background-size: cover;
   }
-  @media (min-width: 1200px) {
+  @media (min-width: 1024px) {
     &:before {
       width: 110%;
       height: 110%;

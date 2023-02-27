@@ -36,7 +36,7 @@ export const Content = styled.main`
     margin-bottom: 1rem;
   }
 
-  @media (min-width: 1200px) {
+  @media (min-width: 1024px) {
     margin-top: 3.25rem;
     padding: 1.25rem 1.75rem;
 
@@ -61,7 +61,7 @@ export const CampaignList = styled.section`
 
   margin-top: 1.5rem;
 
-  @media (min-width: 1200px) {
+  @media (min-width: 1024px) {
     gap: 1.25rem;
     margin-top: 1.75rem;
   }

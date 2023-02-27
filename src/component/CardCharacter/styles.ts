@@ -46,7 +46,7 @@ export const Container = styled.div`
     }
   }
 
-  @media (min-width: 1200px) {
+  @media (min-width: 1024px) {
     padding: 1.5rem 1.75rem;
     margin-top: 1.5rem;
 
@@ -116,7 +116,7 @@ export const InfosCharacter = styled.div`
     }
   }
 
-  @media (min-width: 1200px) {
+  @media (min-width: 1024px) {
     > h3 {
       font-size: 1.25rem;
     }

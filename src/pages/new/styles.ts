@@ -9,21 +9,22 @@ export const Content = styled.form`
   max-height: calc(100vh - 7.5rem);
   overflow-y: auto;
 
-  margin: 2rem auto 0;
+  margin: 2rem auto;
+  padding-bottom: 2.5rem;
 
   > h3 {
     margin: 1rem 0 0.5rem;
   }
 
   > div:last-child {
-    margin-top: 1.25rem;
+    margin-top: 2rem;
 
     display: flex;
     align-items: center;
     justify-content: flex-end;
   }
 
-  @media (min-width: 1200px) {
+  @media (min-width: 1024px) {
     max-height: calc(100vh - 5.5rem - 6.75rem);
     h1 {
       font-size: 2.25rem;
@@ -59,7 +60,7 @@ export const TextArea = styled.label`
     border-radius: 4px;
   }
 
-  @media (min-width: 1200px) {
+  @media (min-width: 1024px) {
     textarea {
       padding: 0.375rem 0.5rem;
     }
@@ -85,7 +86,7 @@ export const Characters = styled.div`
     border-radius: 8px;
   }
 
-  @media (min-width: 1200px) {
+  @media (min-width: 1024px) {
     max-height: 30vh;
 
     display: flex;

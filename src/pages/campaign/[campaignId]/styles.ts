@@ -28,7 +28,7 @@ export const Content = styled.main`
     margin: 1rem 0;
   }
 
-  @media (min-width: 1200px) {
+  @media (min-width: 1024px) {
     height: calc(100vh - 8rem);
     overflow-y: auto;
 
@@ -61,7 +61,7 @@ export const CharactersList = styled.div`
   display: flex;
   flex-direction: column;
 
-  @media (min-width: 1200px) {
+  @media (min-width: 1024px) {
     flex-direction: row;
     justify-content: center !important;
     flex-wrap: wrap;

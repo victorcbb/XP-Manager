@@ -9,7 +9,7 @@ export const Container = styled.button`
 
   margin-bottom: 0.5rem;
 
-  @media (min-width: 1200px) {
+  @media (min-width: 1024px) {
     margin-bottom: 1rem;
   }
 `

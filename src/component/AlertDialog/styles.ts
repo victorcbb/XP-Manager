@@ -60,7 +60,7 @@ export const Content = styled(AlertDialog.Content)`
     height: 2.5rem;
   }
 
-  @media (min-width: 1200px) {
+  @media (min-width: 1024px) {
     div {
       justify-content: end;
     }

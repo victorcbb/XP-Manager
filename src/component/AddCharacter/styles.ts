@@ -35,7 +35,7 @@ export const Trigger = styled(Dialog.Trigger)`
     cursor: not-allowed;
   }
 
-  @media (min-width: 1200px) {
+  @media (min-width: 1024px) {
     margin-top: 2rem;
     height: 2.625rem;
     font-size: 1.25rem;

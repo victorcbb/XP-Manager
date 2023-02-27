@@ -8,7 +8,7 @@ export const Contaienr = styled.div`
     margin: 1.25rem auto 0;
   }
 
-  @media (min-width: 1200px) {
+  @media (min-width: 1024px) {
     > div {
       margin-top: 1.75rem;
     }
@@ -101,7 +101,7 @@ export const TableWrapper = styled.div`
     }
   }
 
-  @media (min-width: 1200px) {
+  @media (min-width: 1024px) {
     width: 100%;
     max-width: 65rem;
     margin-top: 2rem;

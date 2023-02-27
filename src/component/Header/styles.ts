@@ -12,7 +12,7 @@ export const Container = styled.header`
   border-bottom: 1px solid ${({ theme }) => theme['blue-600']};
   box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
 
-  @media (min-width: 1200px) {
+  @media (min-width: 1024px) {
     height: 5.5rem;
   }
 `
@@ -96,7 +96,7 @@ export const UserInfos = styled.div`
     border-radius: 999px;
   }
 
-  @media (min-width: 1200px) {
+  @media (min-width: 1024px) {
     gap: 0.75rem;
 
     div {

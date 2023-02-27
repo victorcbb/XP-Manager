@@ -15,7 +15,7 @@ export const Container = styled.label`
     border-radius: 4px;
   }
 
-  @media (min-width: 1200px) {
+  @media (min-width: 1024px) {
     input {
       padding: 0.375rem 0.5rem;
     }

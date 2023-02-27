@@ -28,7 +28,7 @@ export const Container = styled.button`
     cursor: not-allowed;
   }
 
-  @media (min-width: 1200px) {
+  @media (min-width: 1024px) {
     height: 2.625rem;
     font-size: 1.25rem;
   }

@@ -31,7 +31,7 @@ export const Container = styled(Link)`
     color: ${({ theme }) => theme['gray-800']};
   }
 
-  @media (min-width: 1200px) {
+  @media (min-width: 1024px) {
     height: 12.5rem;
     padding: 1.25rem 1rem;
 

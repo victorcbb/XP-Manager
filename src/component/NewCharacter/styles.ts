@@ -78,7 +78,7 @@ export const Container = styled.div<IProps>`
     }
   }
 
-  @media (min-width: 1200px) {
+  @media (min-width: 1024px) {
     & + & {
       margin-top: 0;
     }

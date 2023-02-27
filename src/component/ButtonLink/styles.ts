@@ -25,7 +25,7 @@ export const Container = styled(Link)`
     filter: brightness(0.8);
   }
 
-  @media (min-width: 1200px) {
+  @media (min-width: 1024px) {
     height: 2.625rem;
     font-size: 1.25rem;
   }
