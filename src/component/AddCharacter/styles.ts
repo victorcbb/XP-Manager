@@ -96,8 +96,13 @@ export const Content = styled(Dialog.Content)`
       cursor: pointer;
       transition: 0.2s all;
 
-      &:hover {
+      &:hover:not(:disabled) {
         filter: brightness(0.85);
+      }
+
+      &:disabled {
+        filter: grayscale(0.5);
+        cursor: not-allowed;
       }
     }
   }

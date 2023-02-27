@@ -50,6 +50,14 @@ export const Container = styled.div`
     padding: 1.5rem 1.75rem;
     margin-top: 1.5rem;
 
+    & + & {
+      border-top: none;
+    }
+
+    &:nth-child(even) {
+      border-left: 1px solid ${({ theme }) => theme['orange-200']};
+    }
+
     > form {
       width: 21rem;
 
@@ -62,14 +70,6 @@ export const Container = styled.div`
 
       button {
         height: 2.0625rem !important;
-      }
-
-      & + & {
-        border-top: none;
-      }
-
-      &:nth-child(even) {
-        border-left: 1px solid ${({ theme }) => theme['orange-200']};
       }
     }
   }

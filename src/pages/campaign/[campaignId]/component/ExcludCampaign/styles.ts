@@ -103,8 +103,13 @@ export const Action = styled(AlertDialog.Action)`
     cursor: pointer;
     transition: all 0.2s;
 
-    &:hover {
+    &:hover:not(:disabled) {
       filter: brightness(0.8);
+    }
+
+    &:disabled {
+      filter: grayscale(0.5);
+      cursor: not-allowed;
     }
   }
 `
