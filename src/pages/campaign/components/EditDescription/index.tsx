@@ -29,6 +29,13 @@ export function EditDescription({
 
     if (newDescription === description) {
       setOpen(false)
+      setIsLoading(false)
+      return
+    }
+
+    if (newDescription.trim().length === 0) {
+      setIsLoading(false)
+      toast.warning('O campo da descrição não pode estar vazio.')
       return
     }
 
@@ -45,7 +52,7 @@ export function EditDescription({
     try {
       await api.put('/campaign/update-description', {
         campaignId,
-        newDescription,
+        newDescription: newDescription.trimStart().trimEnd(),
       })
 
       toast.success('Descrição atualizada com sucesso!')

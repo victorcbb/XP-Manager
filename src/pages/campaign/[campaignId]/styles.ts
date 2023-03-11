@@ -52,7 +52,7 @@ export const Content = styled.main`
     }
 
     > div {
-      padding-inline: 0.5rem;
+      padding-right: 0.5rem;
     }
   }
 `

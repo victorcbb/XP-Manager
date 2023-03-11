@@ -31,7 +31,7 @@ export default function New() {
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
 
-    if (!campaignName) {
+    if (campaignName.trim().length === 0) {
       return toast.warning('Adicione um nome para a sua campanha.')
     }
 
@@ -44,7 +44,7 @@ export default function New() {
       )
     }
 
-    if (!description) {
+    if (description.trim().length === 0) {
       return toast.warning('O campo da descrição deve ser preenchido.')
     }
 
@@ -58,7 +58,7 @@ export default function New() {
       )
     }
 
-    if (newCharacterName || newPlayerName) {
+    if (newCharacterName.trim() || newPlayerName.trim()) {
       return toast.warning(
         `Existe informações de um personagem para adicionar.`,
       )
@@ -68,8 +68,8 @@ export default function New() {
       setIsLoading(true)
 
       await api.post('/campaign/new-campaign', {
-        campaignName,
-        description,
+        campaignName: campaignName.trimStart().trimEnd(),
+        description: description.trimStart().trimEnd(),
         characters,
       })
 
@@ -85,7 +85,10 @@ export default function New() {
   }
 
   function handleAddCharacter() {
-    if (newCharacterName.length === 0 || newPlayerName.length === 0) {
+    if (
+      newCharacterName.trim().length === 0 ||
+      newPlayerName.trim().length === 0
+    ) {
       return toast.warning(`Preencha todos os campos`)
     }
 
@@ -113,8 +116,8 @@ export default function New() {
     setCharacters((prevState) => [
       ...prevState,
       {
-        name: newCharacterName,
-        playerName: newPlayerName,
+        name: newCharacterName.trimStart().trimEnd(),
+        playerName: newPlayerName.trimStart().trimEnd(),
       },
     ])
 

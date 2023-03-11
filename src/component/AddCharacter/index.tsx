@@ -25,36 +25,40 @@ export function AddCharacter({ campaignId }: AddCharacterProps) {
     e.preventDefault()
     setIsLoading(true)
 
+    if (name.trim().length === 0) {
+      setIsLoading(false)
+      return toast.info('Insira o nome do personagem')
+    }
+
     if (
       /^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ0-9\s]+$/.test(name) === false
     ) {
+      setIsLoading(false)
       return toast.info(
         'O campo do nome do personagem deve ter apenas letras, números e acentos',
       )
     }
 
-    if (!name) {
-      return toast.info('Insira o nome do personagem')
+    if (playerName.trim().length === 0) {
+      setIsLoading(false)
+      return toast.info('Insira o nome do jogador')
     }
 
     if (
       /^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ0-9\s]+$/.test(playerName) ===
       false
     ) {
+      setIsLoading(false)
       return toast.info(
         'O campo do nome do personagem deve ter apenas letras, números e acentos',
       )
     }
 
-    if (!playerName) {
-      return toast.info('Insira o nome do jogador')
-    }
-
     try {
       await api.post('/character/new', {
         campaignId,
-        name,
-        playerName,
+        name: name.trimStart().trimEnd(),
+        playerName: playerName.trimStart().trimEnd(),
       })
 
       fetchCharacters(campaignId)
