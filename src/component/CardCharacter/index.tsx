@@ -1,5 +1,5 @@
 import { AxiosError } from 'axios'
-import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
+import { ChangeEvent, FormEvent, memo, useEffect, useState } from 'react'
 import { BsPlusCircle } from 'react-icons/bs'
 import { toast } from 'react-toastify'
 import ContentLoader from 'react-content-loader'
@@ -33,7 +33,7 @@ interface CardCharacterProps {
   experienceTemplate: string
 }
 
-export function CardCharacter({
+export const CardCharacter = memo(function CardCharacter({
   character,
   campaignId,
   experienceTemplate,
@@ -260,4 +260,4 @@ export function CardCharacter({
       />
     </Container>
   )
-}
+})
