@@ -4,9 +4,9 @@ import { useSession } from 'next-auth/react'
 
 import { Container, ContentHeader, UserInfos } from './styles'
 import { UserHeaderButton } from '../UserHeaderButton'
-import { useEffect, useState } from 'react'
+import { memo, useEffect, useState } from 'react'
 
-export function Header() {
+export const Header = memo(function Header() {
   const [open, setOpen] = useState(false)
   const [windowWidth, setWindowWidth] = useState(0)
 
@@ -42,4 +42,4 @@ export function Header() {
       </ContentHeader>
     </Container>
   )
-}
+})
