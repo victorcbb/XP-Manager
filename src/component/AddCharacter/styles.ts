@@ -55,8 +55,8 @@ export const Content = styled(Dialog.Content)`
   background-color: ${({ theme }) => theme['gray-50']};
   border-radius: 6px;
   border: 1px solid ${({ theme }) => theme['orange-500']};
-  box-shadow: hsl(206 22% 7% / 35%) 0px 10px 38px -10px,
-    hsl(206 22% 7% / 20%) 0px 10px 20px -15px;
+  box-shadow: hsl(206 22% 7% / 35%) 0px 0.625rem 2.375rem -0.625rem,
+    hsl(206 22% 7% / 20%) 0px 0.625rem 1.25rem -0.9375rem;
   position: fixed;
   top: 50%;
   left: 50%;
